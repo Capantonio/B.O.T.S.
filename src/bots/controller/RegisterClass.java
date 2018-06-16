@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import bots.controller.MainStart;
 
-public class LoginClass {
+public class RegisterClass {
 	
 	private MainStart start;
 	
@@ -17,15 +17,15 @@ public class LoginClass {
 	}
 	
 	@FXML
-    private void handleOk() 
+	private void handleCancel ()
 	{
-		
+		start.changeStageLogin();
 	}
 	
 	@FXML
-	private void handleNewUser()
+	private void handleSubmit ()
 	{
-		start.changeStageRegister();
+		start.changeStageLogin();
 	}
-	
+
 }

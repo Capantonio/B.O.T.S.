@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="392.0" prefWidth="370.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
+<AnchorPane prefHeight="392.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.RegisterClass">
    <children>
       <Label layoutX="68.0" layoutY="29.0" text="WELCOME NEW USER">
          <font>
@@ -27,6 +26,6 @@
       <TextField layoutX="165.0" layoutY="249.0" prefHeight="25.0" prefWidth="188.0" />
       <TextField layoutX="165.0" layoutY="287.0" prefHeight="25.0" prefWidth="188.0" />
       <Button layoutX="196.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="SUBMIT" />
-      <Button layoutX="55.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="CANCEL" />
+      <Button layoutX="55.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="119.0" text="CANCEL" />
    </children>
 </AnchorPane>
