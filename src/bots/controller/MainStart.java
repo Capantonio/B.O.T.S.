@@ -1,7 +1,6 @@
 package bots.controller;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,12 +9,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.Stage;
 
+import bots.controller.DAO.*;
+
 public class MainStart extends Application {
 
 	private Stage primaryStage;
+	public MysqlConnection mySql;
 	
 	@Override
 	public void start(Stage primaryStage) {
+		
+		mySql = new MysqlConnection();
+		
 		this.primaryStage = primaryStage;
         this.primaryStage.setTitle("B.O.T.S.  Book On The Shelf");
 
@@ -73,6 +78,25 @@ public class MainStart extends Application {
         primaryStage.setScene (scene);
         
         LoginClass controller = loader.getController();
+        controller.setStart(this);
+        
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void changeStageSearch ()
+	{
+		try {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainStart.class.getResource("view/SearchView.fxml"));
+        AnchorPane personOverview = (AnchorPane) loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(personOverview);
+        primaryStage.setScene (scene);
+        
+        SearchClass controller = loader.getController();
         controller.setStart(this);
         
 		} catch (IOException e) {
