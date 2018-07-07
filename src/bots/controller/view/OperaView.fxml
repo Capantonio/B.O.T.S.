@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.OperaClass">
+   <children>
+      <ImageView fx:id="Page" fitHeight="425.0" fitWidth="426.0" layoutX="46.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
+      <TextArea fx:id="Transcribe" layoutX="537.0" layoutY="77.0" prefHeight="425.0" prefWidth="426.0" />
+      <Button layoutX="502.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleForward" prefHeight="35.0" prefWidth="70.0" text="&gt;&gt;" />
+      <Button layoutX="582.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleEnd" prefHeight="35.0" prefWidth="70.0" text="&gt;&gt;|" />
+      <TextField fx:id="PageNumber" layoutX="455.0" layoutY="524.0" maxWidth="35.0" minWidth="35.0" prefHeight="35.0" prefWidth="50.0" />
+      <Button layoutX="292.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleStart" prefHeight="35.0" prefWidth="70.0" text="|&lt;&lt;" />
+      <Button layoutX="372.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleBackward" prefHeight="35.0" prefWidth="70.0" text="&lt;&lt;" />
+      <Label fx:id="Title" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="14.0" prefHeight="48.0" prefWidth="903.0" text="Label" />
+   </children>
+</AnchorPane>

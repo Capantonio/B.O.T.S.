@@ -11,6 +11,11 @@ public class LoginClass {
 	
 	private MainStart start;
 	
+	@FXML
+	private TextField usernameText;
+	@FXML
+	private TextField passwordText;
+	
 	public void setStart (MainStart startx)
 	{
 		start = startx;
@@ -19,12 +24,16 @@ public class LoginClass {
 	@FXML
     private void handleOk() 
 	{
-		
+		String Usernamex = usernameText.getText();
+		String Passwordx = passwordText.getText();
+		if (Usernamex.equals("Admin") && Passwordx.equals("Admin"));
+			start.changeStageSearch();
 	}
 	
 	@FXML
 	private void handleNewUser()
 	{
+		
 		start.changeStageRegister();
 	}
 	

@@ -10,11 +10,13 @@ import javafx.stage.Stage;
 import javafx.stage.Stage;
 
 import bots.controller.DAO.*;
+import bots.controller.model.*;
 
 public class MainStart extends Application {
 
 	private Stage primaryStage;
 	public MysqlConnection mySql;
+	public UserModel ConnectedUser;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -98,6 +100,25 @@ public class MainStart extends Application {
         
         SearchClass controller = loader.getController();
         controller.setStart(this);
+        
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void changeStageOpera (OperaModel opload)
+	{
+		try {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainStart.class.getResource("view/OperaView.fxml"));
+        AnchorPane personOverview = (AnchorPane) loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(personOverview);
+        primaryStage.setScene (scene);
+        
+        OperaClass controller = loader.getController();
+        controller.setStart(this, opload);
         
 		} catch (IOException e) {
             e.printStackTrace();
