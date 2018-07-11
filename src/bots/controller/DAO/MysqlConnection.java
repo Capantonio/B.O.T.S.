@@ -8,6 +8,8 @@ public class MysqlConnection
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
+    
+    public UserTable UserQuery;
 	
 	public MysqlConnection()
 	{
@@ -17,6 +19,8 @@ public class MysqlConnection
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		UserQuery = new UserTable(connect);
 	}
 	
 	public void Connect() throws Exception

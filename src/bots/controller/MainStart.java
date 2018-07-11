@@ -106,7 +106,7 @@ public class MainStart extends Application {
         }
 	}
 	
-	public void changeStageOpera (OperaModel opload)
+	public void changeStageOpera (Integer opload)
 	{
 		try {
 		FXMLLoader loader = new FXMLLoader();

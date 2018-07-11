@@ -8,6 +8,7 @@ import bots.controller.model.*;
 
 public class OperaClass {
 
+	private Integer OperaID;
 	@FXML
 	private TextField PageNumber;
 	@FXML
@@ -22,10 +23,11 @@ public class OperaClass {
 	private Integer PageNum;
 	
 	
-	public void setStart (MainStart startx, OperaModel opload)
+	public void setStart (MainStart startx, Integer opload)
 	{
 		start = startx;
-		LoadOpera = opload;
+		OperaID = opload;
+		//Load Opera from DB
 		PageNum = 1;
 		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
 		PageNumber.setText(PageNum.toString());
