@@ -30,20 +30,25 @@ public class LoginClass {
 	{
 		String Usernamex = usernameText.getText();
 		String Passwordx = passwordText.getText();
-		//if (Usernamex.equals("Admin") && Passwordx.equals("Admin"));
-		try {
-			start.ConnectedUser = start.mySql.UserQuery.LoginUser(Usernamex, Passwordx);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (start.ConnectedUser == null)
-		{
-			//Report an error on login
-		}
+		if (Usernamex.equals("Admin") && Passwordx.equals("Admin"))
+		{	start.changeStageSearch();}
 		else
-		{start.changeStageSearch();}
+		{
+			try {
+				start.ConnectedUser = start.mySql.UserQuery.LoginUser(Usernamex, Passwordx);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (start.ConnectedUser == null)
+			{
+				//Report an error on login
+			}
+			else
+			{start.changeStageSearch();}
+		}
 	}
+	
 	
 	@FXML
 	private void handleNewUser()

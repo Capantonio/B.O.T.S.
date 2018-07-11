@@ -25,6 +25,7 @@ public class RegisterClass {
 	@FXML
 	private void handleSubmit ()
 	{
+		
 		start.changeStageLogin();
 	}
 

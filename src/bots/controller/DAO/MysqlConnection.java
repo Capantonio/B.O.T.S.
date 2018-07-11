@@ -10,6 +10,8 @@ public class MysqlConnection
     private ResultSet resultSet = null;
     
     public UserTable UserQuery;
+    public OperaTable OperaQuery;
+    public PageTable PageQuery;
 	
 	public MysqlConnection()
 	{
@@ -21,6 +23,9 @@ public class MysqlConnection
 		}
 		
 		UserQuery = new UserTable(connect);
+		OperaQuery = new OperaTable(connect);
+		PageQuery = new PageTable(connect);
+		
 	}
 	
 	public void Connect() throws Exception
