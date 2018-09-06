@@ -11,8 +11,8 @@ public class UserTable {
 	private Integer ID;
 	
 	private Connection db;
-	private String SqlLogin = "Select * From User Where Name = ? AND Password = ?";
-	private String SqlExist = "Select * From User Where Name = ? AND Email = ?";
+	private String SqlLogin = "Select * From mydb.user Where Nickname = ? AND Password = ?";
+	private String SqlExist = "Select * From user Where Nickname = ? AND Email = ?";
 	private String SqlRegister = "Insert Into User Value (?,?,?)";
 	
 	public UserTable(Connection xcon)
@@ -35,16 +35,28 @@ public class UserTable {
 	
 	public UserModel LoginUser (String name, String psw) throws SQLException
 	{
+		System.out.println("load method");
 		UserModel UserLogged;
 		ResultSet x = null;
+		if (db == null)
+			System.out.println("no db found");
 		PreparedStatement FindUserQuery = db.prepareStatement(SqlLogin);
+		System.out.println("prepare query for " + name + " and " + psw);
 		FindUserQuery.setString(1, name);
 		FindUserQuery.setString(2, psw);
 		x = FindUserQuery.executeQuery();
-		if (x.getRow() == 1)
+		System.out.println("query");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while (x.next())
 		{
-			UserLogged = new UserModel(x.getInt(0), x.getString("Name"),x.getString("Email"));
-			return UserLogged;
+				System.out.print(x.getString("Name"));
+				UserLogged = new UserModel(x.getInt("idUser"), x.getString("Name"),x.getString("Email"));
+				return UserLogged;
 		}
 		return null;
 	}

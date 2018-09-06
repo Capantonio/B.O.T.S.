@@ -67,6 +67,7 @@ public class SearchClass {
 		{
 			ResultList.add(new ResultModel(xres.getString("Title"),xres.getString("Author"),xres.getString("Data"),xres.getInt("idOpera"),start,Container));
 		}
+		
 	}
 	
 }

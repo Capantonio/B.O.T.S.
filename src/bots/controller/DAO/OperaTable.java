@@ -23,27 +23,29 @@ public class OperaTable {
 	
 	public ResultSet SearchOpera (String xtitle, String xauthor, String xyear) throws SQLException
 	{
-		Integer Count = 0;
 		String SqlQuery = SqlSearch;
-		if (xtitle != null)
-		{ SqlQuery = SqlQuery + SqlTitle; }
+		SqlQuery = SqlQuery + SqlTitle;
 		
-		if (xauthor != null)
-		{ SqlQuery = SqlQuery + ", " + SqlAuthor; }
+		SqlQuery = SqlQuery + ", " + SqlAuthor;
 		
-		if (xyear != null)
-		{ SqlQuery = SqlQuery + ", " + SqlYear; }
+		SqlQuery = SqlQuery + ", " + SqlYear;
 		
 		PreparedStatement SearchOperaQuery = db.prepareStatement(SqlQuery);
 		
 		if (xtitle != null)
-		{ SearchOperaQuery.setString(Count, xtitle); Count++; }
+			{ SearchOperaQuery.setString(1, xtitle); }
+		else
+			{ SearchOperaQuery.setString(1, "*"); }
 		
 		if (xtitle != null)
-		{ SearchOperaQuery.setString(Count, xauthor); Count++; }
+			{ SearchOperaQuery.setString(2, xauthor); }
+		else
+			{ SearchOperaQuery.setString(2, "*"); }
 		
 		if (xtitle != null)
-		{ SearchOperaQuery.setString(Count, xyear); Count++; }
+			{ SearchOperaQuery.setString(3, xyear); }
+		else
+			{ SearchOperaQuery.setString(3, "*"); }
 		
 		ResultSet x = SearchOperaQuery.executeQuery();
 		return x;
