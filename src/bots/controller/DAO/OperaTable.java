@@ -4,51 +4,75 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import bots.controller.model.OperaModel;
+import bots.controller.model.ResultModel;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+
 
 public class OperaTable {
 
 	private Connection db;
-	private String SqlGet = "Select * From Opera Where ID = ?";
-	private String SqlSearch = "Select ID, Title, Author, Data From Opera Where ";
+	private String SqlGet = "Select * From mydb.opera Where idOpera = ?";
+	private String SqlSearch = "Select idOpera, Title, Author, DataOpera From mydb.opera Where ";
 	private String SqlTitle = "Title = ?";
 	private String SqlAuthor = "Author = ?";
-	private String SqlYear = "Data = ?";
+	private String SqlYear = "DataOpera = ?";
 	
 	public OperaTable(Connection xcon)
 	{
 		db = xcon;
 	}
 	
-	public ResultSet SearchOpera (String xtitle, String xauthor, String xyear) throws SQLException
+	public LinkedList<ResultModel> SearchOpera (String xtitle, String xauthor, String xyear, bots.controller.SearchClass object, Boolean flagt, Boolean flaga, Boolean flagy, AnchorPane cont ) throws SQLException
 	{
 		String SqlQuery = SqlSearch;
-		SqlQuery = SqlQuery + SqlTitle;
-		
-		SqlQuery = SqlQuery + ", " + SqlAuthor;
-		
-		SqlQuery = SqlQuery + ", " + SqlYear;
+		if (!flagt)
+			SqlQuery = SqlQuery + "!(" + SqlTitle + ")";
+		else
+			SqlQuery = SqlQuery + SqlTitle;
+		if (!flaga)
+			SqlQuery = SqlQuery + " AND !(" + SqlAuthor + ")";
+		else
+			SqlQuery = SqlQuery + " AND " + SqlAuthor;
+		if (flagy)
+			SqlQuery = SqlQuery + " AND " + SqlYear;
+		else
+			SqlQuery = SqlQuery + " AND !(" + SqlYear + ")";
 		
 		PreparedStatement SearchOperaQuery = db.prepareStatement(SqlQuery);
 		
-		if (xtitle != null)
+		if (flagt)
 			{ SearchOperaQuery.setString(1, xtitle); }
 		else
-			{ SearchOperaQuery.setString(1, "*"); }
+			{ SearchOperaQuery.setString(1, ""); }
 		
-		if (xtitle != null)
+		if (flaga)
 			{ SearchOperaQuery.setString(2, xauthor); }
 		else
-			{ SearchOperaQuery.setString(2, "*"); }
+			{ SearchOperaQuery.setString(2, ""); }
 		
-		if (xtitle != null)
-			{ SearchOperaQuery.setString(3, xyear); }
+		if (flagy)
+			{ SearchOperaQuery.setInt(3, Integer.parseInt (xyear)); }
 		else
-			{ SearchOperaQuery.setString(3, "*"); }
+			{ SearchOperaQuery.setString(3, ""); }
 		
+		System.out.println(SearchOperaQuery.toString());
 		ResultSet x = SearchOperaQuery.executeQuery();
-		return x;
+		LinkedList<ResultModel> ResultList = new LinkedList<ResultModel>();
+		System.out.println("Get Result");
+		//For each element on result
+		int count = 0;
+		while (x.next())
+		{
+			System.out.println(x.getString("Title"));
+			ResultList.add(new ResultModel(x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getInt("idOpera"), object, cont, count));
+			count++;
+		}
+		cont.setPrefHeight(count*30);
+		return ResultList;
 	}
 	
 	public OperaModel GetOpera (int xid) throws SQLException
@@ -56,7 +80,11 @@ public class OperaTable {
 		PreparedStatement GetOperaQuery = db.prepareStatement(SqlGet);
 		GetOperaQuery.setInt(1, xid);
 		ResultSet x = GetOperaQuery.executeQuery();
-		OperaModel res = new OperaModel();
+		OperaModel res = null;
+		while (x.next())
+		{
+			res = new OperaModel(x.getInt("idOpera"), x.getString("Title"), x.getString("Author"), x.getString("DataOpera"), x.getInt("Page"));
+		}
 		//Fill the opera class
 		return res;
 	}

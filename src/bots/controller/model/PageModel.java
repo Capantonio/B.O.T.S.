@@ -1,5 +1,7 @@
 package bots.controller.model;
 
+import java.awt.image.BufferedImage;
+
 import bots.controller.model.*;
 import javafx.scene.image.*;
 

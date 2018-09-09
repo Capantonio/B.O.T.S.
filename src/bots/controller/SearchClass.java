@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.layout.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,14 +26,19 @@ public class SearchClass {
 	private TextField YearSearch;
 	
 	@FXML
-	private ScrollPane Container;
-	
-	private LinkedList<ResultModel> ResultList;
+	private AnchorPane Container;
+	@FXML
+	private ScrollPane Scrollp;
 	
 	private MainStart start;
-	private String TitleText;
-	private String AuthorText;
-	private String DataText;
+	private String TitleText = "";
+	private String AuthorText = "";
+	private String DataText = "";
+	
+	private Boolean flagt = false, flaga = false, flagy = false;
+	
+
+	private LinkedList<ResultModel> res = new LinkedList<ResultModel>();
 	
 	public void setStart (MainStart startx)
 	{
@@ -42,32 +48,40 @@ public class SearchClass {
 	@FXML
 	public void HandleSearch ()
 	{
-		if (!(Search.getText().equals(null)))
+		res.clear();
+		if (!(Search.getText().equals("")))
 		{
 			TitleText = Search.getText();
+			flagt = true;
 		}
-		if (!(AutSearch.getText().equals(null)))
+		if (!(AutSearch.getText().equals("")))
 		{
 			AuthorText = AutSearch.getText();
+			flaga = true;
 		}
-		if (!(YearSearch.getText().equals(null)))
+		if (!(YearSearch.getText().equals("")))
 		{
 			DataText = YearSearch.getText(); 
+			flagy = true;
 		}
+		Container.getChildren().clear();
+		System.out.println(flagt.toString() + ":" + flaga.toString() + ":" + flagy.toString());
 		//Search on DAO command
-		//Get the result
-		//Call the ResultView function with result as parameter
-	}
-
-	public void ResultView (ResultSet xres) throws SQLException
-	{
-		ResultList = new LinkedList<ResultModel>();
-		//For each element on result
-		while (xres.next())
-		{
-			ResultList.add(new ResultModel(xres.getString("Title"),xres.getString("Author"),xres.getString("Data"),xres.getInt("idOpera"),start,Container));
+		try {
+			res = start.mySql.OperaQuery.SearchOpera(TitleText, AuthorText, DataText, this, flagt, flaga, flagy, Container);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+		//Only for test
+		start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\Discord.png", 2);
+		start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\blender.png", 3);
+	}
+	
+	public void ReadOpera (int xid)
+	{
+		start.changeStageOpera(xid);
 	}
 	
 }

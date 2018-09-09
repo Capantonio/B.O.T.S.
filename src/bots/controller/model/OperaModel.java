@@ -4,13 +4,12 @@ import bots.controller.model.*;
 
 public class OperaModel {
 	
-	private Integer ID;
+	public Integer ID;
 	private String Title;
 	private String Author;
 	private Boolean Show;
-	private String UserLoad;
 	private String Data;
-	private PageModel[] Pages;
+	public PageModel[] Pages;
 	private Integer Lenght;
 	
 	public OperaModel ()
@@ -18,13 +17,13 @@ public class OperaModel {
 		
 	}
 	
-	public OperaModel (String Tit, String Aut, String User, Integer PageN, PageModel[] List)
+	public OperaModel (Integer id, String Tit, String Aut, String datax, Integer PageN)
 	{
+		ID = id;
 		Title = Tit;
 		Author = Aut;
-		UserLoad = User;
+		Data = datax;
 		Pages = new PageModel[PageN];
-		Pages = List;
 		Lenght = PageN;
 	}
 

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -9,7 +10,7 @@
 <AnchorPane prefHeight="234.0" prefWidth="333.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.LoginClass">
    <children>
       <TextField fx:id="usernameText" layoutX="111.0" layoutY="79.0" prefHeight="25.0" prefWidth="206.0" />
-      <TextField fx:id="passwordText" layoutX="111.0" layoutY="137.0" prefHeight="25.0" prefWidth="206.0" />
+      <PasswordField fx:id="passwordText" layoutX="108.0" layoutY="137.0" prefHeight="25.0" prefWidth="206.0" />
       <Label layoutX="34.0" layoutY="83.0" text="USERNAME" />
       <Label layoutX="33.0" layoutY="141.0" text="PASSWORD" />
       <Button layoutX="62.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleNewUser" prefHeight="25.0" prefWidth="90.0" text="NEW USER" />
@@ -19,5 +20,6 @@
             <Font size="24.0" />
          </font>
       </Label>
+      
    </children>
 </AnchorPane>

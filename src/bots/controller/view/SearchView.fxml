@@ -13,9 +13,9 @@
       <TextField fx:id="AutSearch" layoutX="398.0" layoutY="71.0" promptText="AUTHOR" />
       <TextField fx:id="YearSearch" layoutX="560.0" layoutY="71.0" prefHeight="25.0" prefWidth="78.0" promptText="DATA" />
       <Button layoutX="655.0" layoutY="71.0" mnemonicParsing="false" onAction="#HandleSearch" prefHeight="25.0" prefWidth="110.0" text="Search" />
-      <ScrollPane fx:id="Container" layoutX="21.0" layoutY="118.0" prefHeight="469.0" prefWidth="757.0">
+      <ScrollPane fx:id="Scrollp" layoutX="21.0" layoutY="118.0" prefHeight="469.0" prefWidth="757.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+          <AnchorPane fx:id="Container" minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="755.0" />
         </content>
       </ScrollPane>
    </children>

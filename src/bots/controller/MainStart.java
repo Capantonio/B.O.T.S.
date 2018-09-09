@@ -59,8 +59,29 @@ public class MainStart extends Application {
         // Show the scene containing the root layout.
         Scene scene = new Scene(personOverview);
         primaryStage.setScene (scene);
+        primaryStage.centerOnScreen();
         
         RegisterClass controller = loader.getController();
+        controller.setStart(this);
+        
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void changeStageAdmin ()
+	{
+		try {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainStart.class.getResource("view/AdminView.fxml"));
+        AnchorPane personOverview = (AnchorPane) loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(personOverview);
+        primaryStage.setScene (scene);
+        primaryStage.centerOnScreen();
+        
+        AdminClass controller = loader.getController();
         controller.setStart(this);
         
 		} catch (IOException e) {
@@ -78,6 +99,7 @@ public class MainStart extends Application {
         // Show the scene containing the root layout.
         Scene scene = new Scene(personOverview);
         primaryStage.setScene (scene);
+        primaryStage.centerOnScreen();
         
         LoginClass controller = loader.getController();
         controller.setStart(this);
@@ -97,6 +119,7 @@ public class MainStart extends Application {
         // Show the scene containing the root layout.
         Scene scene = new Scene(personOverview);
         primaryStage.setScene (scene);
+        primaryStage.centerOnScreen();
         
         SearchClass controller = loader.getController();
         controller.setStart(this);
@@ -116,8 +139,9 @@ public class MainStart extends Application {
         // Show the scene containing the root layout.
         Scene scene = new Scene(personOverview);
         primaryStage.setScene (scene);
+        primaryStage.centerOnScreen();
         
-        OperaClass controller = loader.getController();
+        ViewerClass controller = loader.getController();
         controller.setStart(this, opload);
         
 		} catch (IOException e) {
