@@ -64,6 +64,8 @@ public class ViewerClass {
 		if (PageNum > 1)
 		{
 			PageNum--;
+			if (LoadOpera.Pages[PageNum] == null)
+				LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
 			Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
 			Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().GetText());
 			PageNumber.setText(PageNum.toString());
@@ -74,6 +76,8 @@ public class ViewerClass {
 	public void HandleStart ()
 	{
 		PageNum = 1;
+		if (LoadOpera.Pages[PageNum] == null)
+			LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
 		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
 		Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().GetText());
 		PageNumber.setText(PageNum.toString());
@@ -82,7 +86,9 @@ public class ViewerClass {
 	@FXML
 	public void HandleEnd ()
 	{
-		PageNum = 0;
+		PageNum = LoadOpera.GetLenght();
+		if (LoadOpera.Pages[PageNum] == null)
+			LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
 		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
 		Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().GetText());
 		PageNumber.setText(PageNum.toString());
