@@ -19,13 +19,13 @@
       <Label layoutX="35.0" layoutY="215.0" text="PASSWORD" />
       <Label layoutX="36.0" layoutY="253.0" text="CONFIRM PASSWORD" />
       <Label layoutX="36.0" layoutY="291.0" text="USERNAME" />
-      <TextField layoutX="165.0" layoutY="99.0" prefHeight="25.0" prefWidth="188.0" />
-      <TextField layoutX="165.0" layoutY="136.0" prefHeight="25.0" prefWidth="188.0" />
-      <TextField layoutX="165.0" layoutY="174.0" prefHeight="25.0" prefWidth="188.0" />
-      <TextField layoutX="165.0" layoutY="211.0" prefHeight="25.0" prefWidth="188.0" />
+      <TextField layoutX="165.0" layoutY="99.0" prefHeight="25.0" prefWidth="188.0" fx:id ="nametext"/>
+      <TextField layoutX="165.0" layoutY="136.0" prefHeight="25.0" prefWidth="188.0" fx:id ="surnametext"/>
+      <TextField layoutX="165.0" layoutY="174.0" prefHeight="25.0" prefWidth="188.0" fx:id = "emailtext"/>
+      <TextField layoutX="165.0" layoutY="211.0" prefHeight="25.0" prefWidth="188.0" fx:id = "passwordtext"/>
       <TextField layoutX="165.0" layoutY="249.0" prefHeight="25.0" prefWidth="188.0" />
-      <TextField layoutX="165.0" layoutY="287.0" prefHeight="25.0" prefWidth="188.0" />
-      <Button layoutX="196.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="SUBMIT" />
+      <TextField layoutX="165.0" layoutY="287.0" prefHeight="25.0" prefWidth="188.0" fx:id = "usernametext"/>
+      <Button layoutX="196.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="25.0" prefWidth="119.0" text="SUBMIT" />
       <Button layoutX="55.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="119.0" text="CANCEL" />
    </children>
 </AnchorPane>

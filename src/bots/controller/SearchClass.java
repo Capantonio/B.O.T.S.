@@ -54,15 +54,30 @@ public class SearchClass {
 			TitleText = Search.getText();
 			flagt = true;
 		}
+		else
+		{
+			TitleText = Search.getText();
+			flagt = false;
+		}
 		if (!(AutSearch.getText().equals("")))
 		{
 			AuthorText = AutSearch.getText();
 			flaga = true;
 		}
+		else
+		{
+			AuthorText = AutSearch.getText();
+			flaga = false;
+		}
 		if (!(YearSearch.getText().equals("")))
 		{
 			DataText = YearSearch.getText(); 
 			flagy = true;
+		}
+		else
+		{
+			DataText = YearSearch.getText();
+			flagy = false;
 		}
 		Container.getChildren().clear();
 		System.out.println(flagt.toString() + ":" + flaga.toString() + ":" + flagy.toString());
@@ -75,8 +90,8 @@ public class SearchClass {
 		}
 		
 		//Only for test
-		start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\Discord.png", 2);
-		start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\blender.png", 3);
+		//start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\Discord.png", 2);
+		//start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\blender.png", 3);
 	}
 	
 	public void ReadOpera (int xid)

@@ -15,15 +15,15 @@ public class UserModel {
 
 	private AdminClass Parent;
 	
-	private Integer ID;
-	private String Username;
-	private String Email;
-	private String Name;
-	private String Surname;
-	private String Transcriber;
-	private String Admin;
-	private String Revisioner;
-	private String Download;
+	public Integer ID;
+	public String Username;
+	public String Email;
+	public String Name;
+	public String Surname;
+	public String Transcriber;
+	public String Admin;
+	public String Revisioner;
+	public String Download;
 	
 	@FXML
 	private AnchorPane Container;
@@ -88,6 +88,7 @@ public class UserModel {
 	
 	public void ShowInfo (Integer x)
 	{
+		UserModel user = this;
 		String appo;
 		SetShow (Lname, 0, x * 30, 70, Name);
 		SetShow (Lsur, 70, x * 30, 70, Surname);
@@ -105,7 +106,7 @@ public class UserModel {
 		Mod.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e)
 		    {
-		    	Parent.ModifyPopup(new Stage());
+		    	ModifyPopUp();
 		    }
 		});
 		Mod.setText("Modify");
@@ -126,6 +127,11 @@ public class UserModel {
 		Trsc.setLayoutX(540);
 		Trsc.setLayoutY(x*30);
 		Container.getChildren().add(Trsc);
+	}
+	
+	public void ModifyPopUp ()
+	{
+		Parent.ModifyPopup(new Stage(), this);
 	}
 	
 	public void SetShow (Label obj, Integer x, Integer y, Integer width, String text)

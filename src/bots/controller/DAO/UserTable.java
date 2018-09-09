@@ -18,7 +18,8 @@ public class UserTable {
 	private Connection db;
 	private String SqlLogin = "Select * From mydb.user Where Nickname = ? AND Password = ?";
 	private String SqlExist = "Select * From mydb.user Where Nickname = ? AND Email = ?";
-	private String SqlRegister = "Insert Into mydb.user Value (?,?,?)";
+	private String SqlRegister = "Insert Into mydb.user (Name, Surname, Email, Nickname, Password, Transcriber, Download, Admin, Revisioner) Value (?,?,?,?,?,'0','0','0','0')";
+	private String SqlModify = "Update mydb.user Set Name = ?, Surname = ?, Nickname = ?, Email = ?, Transcriber = ?, Admin = ?, Revisioner = ?, Download = ? Where idUser = ?";
 	
 	private String SqlSearch = "Select idUser, Name, Surname, Nickname, Email, Transcriber, Download, Admin, Revisioner  From mydb.user Where ";
 	private String SqlName = "Name = ?";
@@ -35,6 +36,21 @@ public class UserTable {
 		db = xcon;
 	}
 	
+	public void ChangeUser (UserModel x) throws SQLException
+	{
+		PreparedStatement ModifyUser = db.prepareStatement(SqlModify);
+		ModifyUser.setString(1, x.Name);
+		ModifyUser.setString(2, x.Surname);
+		ModifyUser.setString(3, x.Username);
+		ModifyUser.setString(4, x.Email);
+		ModifyUser.setString(5, x.Transcriber);
+		ModifyUser.setString(6, x.Admin);
+		ModifyUser.setString(7, x.Revisioner);
+		ModifyUser.setString(8, x.Download);
+		ModifyUser.setInt(9, x.ID);
+		ModifyUser.executeUpdate();
+	}
+	
 	public Boolean ExistUser (String name, String email) throws SQLException
 	{
 		ResultSet x = null;
@@ -42,10 +58,10 @@ public class UserTable {
 		FindUserQuery.setString(1, name);
 		FindUserQuery.setString(2, email);
 		x = FindUserQuery.executeQuery();
-		if (x.wasNull())
-			return true;
-		else
+		if (x.next())
 			return false;
+		else
+			return true;
 	}
 	
 	public UserModel LoginUser (String name, String psw) throws SQLException
@@ -76,10 +92,16 @@ public class UserTable {
 		return null;
 	}
 	
-	public Boolean RegisterUser (String name, String psw, String Email) throws SQLException
+	public Boolean RegisterUser (String name, String psw, String email, String surname, String username) throws SQLException
 	{
-		
-		return true;
+		PreparedStatement AddUserQuery = db.prepareStatement(SqlRegister); 
+		  AddUserQuery.setString(1, name);
+		  AddUserQuery.setString(2, surname);
+		  AddUserQuery.setString(3, email);
+		  AddUserQuery.setString(4, username);
+		  AddUserQuery.setString(5, psw);
+		  AddUserQuery.executeUpdate();
+		  return true;
 	}
 	
 	public LinkedList<UserModel> SearchUser (String xname, String xsurname, String xemail, String xusername, String xtrsc, String xadmin, String xrev, String xdl, AnchorPane cont, AdminClass obj) throws SQLException
