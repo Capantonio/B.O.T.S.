@@ -44,11 +44,9 @@ public class RegisterClass {
   String Name = nametext.getText();
   String Surname = surnametext.getText();
   String Email = emailtext.getText();
-  
+ 
   if(start.mySql.UserQuery.ExistUser(Username, Email))
    start.mySql.UserQuery.RegisterUser(Name, Password, Email, Surname, Username);
-  
-  
   
   start.changeStageLogin();
  }
