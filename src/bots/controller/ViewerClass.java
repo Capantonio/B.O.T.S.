@@ -38,59 +38,74 @@ public class ViewerClass {
 			e.printStackTrace();
 		}
 		LoadOpera.Pages[1] = start.mySql.PageQuery.GetPageFromOpera(opload, 1);
+		try {
+			LoadOpera.Pages[1].ModTranscr(start.mySql.TrscQuery.getTranscribe(LoadOpera.Pages[1].PageID));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		PageNum = 1;
 		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
+		Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().Text);
 		PageNumber.setText(PageNum.toString());
 		Title.setText(LoadOpera.GetTitle());
 	}
 	
 	@FXML
-	public void HandleForward ()
+	public void HandleForward () throws SQLException
 	{
 		if (PageNum < LoadOpera.GetLenght())
 		{
 			PageNum++;
-			if (LoadOpera.Pages[PageNum] == null)
+			if (LoadOpera.Pages[PageNum] == null) {
 				LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
+				LoadOpera.Pages[PageNum].ModTranscr(start.mySql.TrscQuery.getTranscribe(LoadOpera.Pages[1].PageID));
+			}
 			Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
-			Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().GetText());
+			Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().Text);
 			PageNumber.setText(PageNum.toString());
 		}
 	}
 	
 	@FXML
-	public void HandleBackward ()
+	public void HandleBackward () throws SQLException
 	{
 		if (PageNum > 1)
 		{
 			PageNum--;
-			if (LoadOpera.Pages[PageNum] == null)
+			if (LoadOpera.Pages[PageNum] == null) {
 				LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
+				LoadOpera.Pages[PageNum].ModTranscr(start.mySql.TrscQuery.getTranscribe(LoadOpera.Pages[1].PageID));
+			}
 			Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
-			Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().GetText());
+			Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().Text);
 			PageNumber.setText(PageNum.toString());
 		}
 	}
 	
 	@FXML
-	public void HandleStart ()
+	public void HandleStart () throws SQLException
 	{
 		PageNum = 1;
-		if (LoadOpera.Pages[PageNum] == null)
+		if (LoadOpera.Pages[PageNum] == null) {
 			LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
+			LoadOpera.Pages[PageNum].ModTranscr(start.mySql.TrscQuery.getTranscribe(LoadOpera.Pages[1].PageID));
+		}
 		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
-		Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().GetText());
+		Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().Text);
 		PageNumber.setText(PageNum.toString());
 	}
 	
 	@FXML
-	public void HandleEnd ()
+	public void HandleEnd () throws SQLException
 	{
 		PageNum = LoadOpera.GetLenght();
-		if (LoadOpera.Pages[PageNum] == null)
+		if (LoadOpera.Pages[PageNum] == null) {
 			LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
+			LoadOpera.Pages[PageNum].ModTranscr(start.mySql.TrscQuery.getTranscribe(LoadOpera.Pages[1].PageID));
+		}
 		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
-		Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().GetText());
+		Transcribe.setText(LoadOpera.GetPage(PageNum).GetTrsc().Text);
 		PageNumber.setText(PageNum.toString());
 	}
 	

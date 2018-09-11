@@ -7,12 +7,14 @@ import javafx.scene.image.*;
 
 public class PageModel {
 
-	private Image PageImage;
-	private Integer PageNumber;
-	private TranscribeModel PageTranscr;
+	public Integer PageID;
+	public Image PageImage;
+	public Integer PageNumber;
+	public TranscribeModel PageTranscr;
 	
-	public PageModel (Image source, Integer num)
+	public PageModel (Integer id, Image source, Integer num)
 	{
+		PageID = id;
 		PageImage = source;
 		PageNumber = num;
 		PageTranscr = new TranscribeModel();

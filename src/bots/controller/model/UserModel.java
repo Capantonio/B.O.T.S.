@@ -106,7 +106,7 @@ public class UserModel {
 		Mod.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e)
 		    {
-		    	ModifyPopUp();
+		    	Parent.start.PopupUser(user);
 		    }
 		});
 		Mod.setText("Modify");
@@ -119,7 +119,7 @@ public class UserModel {
 		Trsc.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e)
 		    {
-		    	Parent.ListPopup(new Stage());
+		    	Parent.start.PopupUser(user);
 		    }
 		});
 		Trsc.setText("List");
@@ -127,11 +127,6 @@ public class UserModel {
 		Trsc.setLayoutX(540);
 		Trsc.setLayoutY(x*30);
 		Container.getChildren().add(Trsc);
-	}
-	
-	public void ModifyPopUp ()
-	{
-		Parent.ModifyPopup(new Stage(), this);
 	}
 	
 	public void SetShow (Label obj, Integer x, Integer y, Integer width, String text)

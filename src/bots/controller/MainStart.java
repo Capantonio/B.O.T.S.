@@ -15,6 +15,7 @@ import bots.controller.model.*;
 public class MainStart extends Application {
 
 	private Stage primaryStage;
+	private Stage secondaryStage;
 	public MysqlConnection mySql;
 	public UserModel ConnectedUser;
 	
@@ -48,6 +49,57 @@ public class MainStart extends Application {
             e.printStackTrace();
         }
     }
+	
+	public void PopupUser(UserModel user) {
+        try {
+        	secondaryStage = new Stage();
+        	secondaryStage.centerOnScreen();
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainStart.class.getResource("view/UserModifyPopup.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(personOverview);
+            secondaryStage.setScene(scene);
+            secondaryStage.sizeToScene();
+            secondaryStage.show();
+            
+            PopupUserClass controller = loader.getController();
+            controller.setStart(this, user);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void PopupTrsc(UserModel user) {
+        try {
+        	secondaryStage = new Stage();
+        	secondaryStage.centerOnScreen();
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainStart.class.getResource("view/RevisionLstPopup.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(personOverview);
+            secondaryStage.setScene(scene);
+            secondaryStage.sizeToScene();
+            secondaryStage.show();
+            
+            RevisionListClass controller = loader.getController();
+            controller.setStart(this, user);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void ClosePopup ()
+	{
+		secondaryStage.close();
+	}
 	
 	public void changeStageRegister ()
 	{
