@@ -7,8 +7,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.SearchClass">
    <children>
-      <Button layoutX="648.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" text="Profile" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" text="Load New Opera" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoad" prefHeight="31.0" prefWidth="138.0" text="Load New Opera" />
       <TextField fx:id="Search" layoutX="21.0" layoutY="71.0" prefHeight="25.0" prefWidth="363.0" promptText="TITLE" />
       <TextField fx:id="AutSearch" layoutX="398.0" layoutY="71.0" promptText="AUTHOR" />
       <TextField fx:id="YearSearch" layoutX="560.0" layoutY="71.0" prefHeight="25.0" prefWidth="78.0" promptText="DATA" />

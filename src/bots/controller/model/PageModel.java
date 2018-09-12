@@ -10,28 +10,23 @@ public class PageModel {
 	public Integer PageID;
 	public Image PageImage;
 	public Integer PageNumber;
-	public TranscribeModel PageTranscr;
+	public String Transcribe;
+	public String LastUserModify;
+	public String Revision;
 	
-	public PageModel (Integer id, Image source, Integer num)
+	
+	public PageModel (Integer id, Image source, Integer num, String trsc, String lastu, String rev)
 	{
 		PageID = id;
 		PageImage = source;
 		PageNumber = num;
-		PageTranscr = new TranscribeModel();
-	}
-	
-	public void ModTranscr (TranscribeModel newtrsc)
-	{
-		PageTranscr = newtrsc;
+		Transcribe = trsc;
+		LastUserModify = lastu;
+		Revision = rev;
 	}
 	
 	public Image GetImage ()
 	{
 		return PageImage;
-	}
-	
-	public TranscribeModel GetTrsc ()
-	{
-		return PageTranscr;
 	}
 }

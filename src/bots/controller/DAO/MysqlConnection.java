@@ -12,7 +12,6 @@ public class MysqlConnection
     public UserTable UserQuery;
     public OperaTable OperaQuery;
     public PageTable PageQuery;
-    public TranscribeTable TrscQuery;
 	
 	public MysqlConnection()
 	{
@@ -26,7 +25,6 @@ public class MysqlConnection
 		UserQuery = new UserTable(connect);
 		OperaQuery = new OperaTable(connect);
 		PageQuery = new PageTable(connect);
-		TrscQuery = new TranscribeTable(connect);
 		
 	}
 	

@@ -6,16 +6,25 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.ViewerClass">
    <children>
       <ImageView fx:id="Page" fitHeight="425.0" fitWidth="426.0" layoutX="46.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
       <TextArea fx:id="Transcribe" layoutX="537.0" layoutY="77.0" prefHeight="425.0" prefWidth="426.0" />
-      <Button layoutX="502.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleForward" prefHeight="35.0" prefWidth="70.0" text="&gt;&gt;" />
-      <Button layoutX="582.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleEnd" prefHeight="35.0" prefWidth="70.0" text="&gt;&gt;|" />
+      <Button fx:id="button3" layoutX="502.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleForward" prefHeight="35.0" prefWidth="70.0" text="&gt;&gt;" />
+      <Button fx:id="button4" layoutX="582.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleEnd" prefHeight="35.0" prefWidth="70.0" text="&gt;&gt;|" />
       <TextField fx:id="PageNumber" layoutX="455.0" layoutY="524.0" maxWidth="35.0" minWidth="35.0" prefHeight="35.0" prefWidth="50.0" />
-      <Button layoutX="292.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleStart" prefHeight="35.0" prefWidth="70.0" text="|&lt;&lt;" />
-      <Button layoutX="372.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleBackward" prefHeight="35.0" prefWidth="70.0" text="&lt;&lt;" />
-      <Label fx:id="Title" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="14.0" prefHeight="48.0" prefWidth="903.0" text="Label" />
+      <Button fx:id="button1" layoutX="292.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleStart" prefHeight="35.0" prefWidth="70.0" text="|&lt;&lt;" />
+      <Button fx:id="button2" layoutX="372.0" layoutY="524.0" mnemonicParsing="false" onAction="#HandleBackward" prefHeight="35.0" prefWidth="70.0" text="&lt;&lt;" />
+      <Label fx:id="Title" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="14.0" prefHeight="48.0" prefWidth="903.0" text="Label">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button layoutX="14.0" layoutY="601.0" mnemonicParsing="false" onAction="#handleBackSearch" prefHeight="35.0" prefWidth="134.0" text="Back to Search" />
+      <Button fx:id="download" layoutX="433.0" layoutY="601.0" mnemonicParsing="false" onAction="#handleDownload" prefHeight="35.0" prefWidth="134.0" text="Download" />
+      <Button fx:id="trsc" layoutX="852.0" layoutY="601.0" mnemonicParsing="false" onAction="#handleTrsc2" prefHeight="35.0" prefWidth="134.0" text="Transcribe" />
+      <Button fx:id="cancel" layoutX="669.0" layoutY="512.0" mnemonicParsing="false" onAction="#handleCancel2" prefHeight="25.0" prefWidth="80.0" text="Cancel" />
+      <Button fx:id="apply" layoutX="778.0" layoutY="512.0" mnemonicParsing="false" onAction="#handleApply2" prefHeight="25.0" prefWidth="80.0" text="Apply" />
    </children>
 </AnchorPane>

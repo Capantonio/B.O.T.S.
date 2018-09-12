@@ -6,11 +6,11 @@ public class OperaModel {
 	
 	public Integer ID;
 	private String Title;
-	private String Author;
-	private Boolean Show;
-	private String Data;
+	public String Author;
+	public Boolean Show;
+	public String Data;
 	public PageModel[] Pages;
-	private Integer Lenght;
+	public Integer Lenght;
 	
 	public OperaModel ()
 	{
@@ -23,8 +23,8 @@ public class OperaModel {
 		Title = Tit;
 		Author = Aut;
 		Data = datax;
-		Pages = new PageModel[PageN];
-		Lenght = PageN;
+		Pages = new PageModel[PageN+1];
+		Lenght = PageN+1;
 	}
 
 	public PageModel GetPage (Integer num)

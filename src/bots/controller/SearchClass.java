@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import bots.controller.MainStart;
 import bots.controller.model.*;
 
@@ -92,6 +94,27 @@ public class SearchClass {
 		//Only for test
 		//start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\Discord.png", 2);
 		//start.mySql.PageQuery.LoadImage(1, "C:\\Users\\Fabio\\Desktop\\Fabio\\Varie scartoffie\\blender.png", 3);
+	}
+	
+	@FXML
+	public void handleLoad ()
+	{
+		String Title="", Author="", Page="", Path="";
+		while (Title.equals(""))
+			Title = JOptionPane.showInputDialog("Enter the title:");
+		while (Title.equals(""))
+			Author = JOptionPane.showInputDialog("Enter the author:");
+		while (Title.equals(""))
+			Page = JOptionPane.showInputDialog("Enter the number of page:");
+		while (Title.equals(""))
+			Path = JOptionPane.showInputDialog("Enter the path of images:");
+		
+		Integer x = Integer.parseInt(Page);
+		//create opera
+		for (int i = 0; i < x; i++)
+		{
+			//load image
+		}
 	}
 	
 	public void ReadOpera (int xid)

@@ -1,6 +1,8 @@
 package bots.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -194,7 +196,12 @@ public class MainStart extends Application {
         primaryStage.centerOnScreen();
         
         ViewerClass controller = loader.getController();
-        controller.setStart(this, opload);
+        try {
+			controller.setStart(this, opload);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
 		} catch (IOException e) {
             e.printStackTrace();

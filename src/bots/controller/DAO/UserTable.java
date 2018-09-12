@@ -10,16 +10,12 @@ import java.util.LinkedList;
 
 public class UserTable {
 	
-	private String Username;
-	private String Password;
-	private String Email;
-	private Integer ID;
-	
 	private Connection db;
 	private String SqlLogin = "Select * From mydb.user Where Nickname = ? AND Password = ?";
 	private String SqlExist = "Select * From mydb.user Where Nickname = ? AND Email = ?";
 	private String SqlRegister = "Insert Into mydb.user (Name, Surname, Email, Nickname, Password, Transcriber, Download, Admin, Revisioner) Value (?,?,?,?,?,'0','0','0','0')";
 	private String SqlModify = "Update mydb.user Set Name = ?, Surname = ?, Nickname = ?, Email = ?, Transcriber = ?, Admin = ?, Revisioner = ?, Download = ? Where idUser = ?";
+	private String SqlTranscribe = "Select * From mydb.permission_transcribe Where User = ? AND Page = ?";
 	
 	private String SqlSearch = "Select idUser, Name, Surname, Nickname, Email, Transcriber, Download, Admin, Revisioner  From mydb.user Where ";
 	private String SqlName = "Name = ?";
@@ -62,6 +58,17 @@ public class UserTable {
 			return false;
 		else
 			return true;
+	}
+	
+	public Boolean TranscribePermission (Integer user, Integer page) throws SQLException
+	{
+		PreparedStatement TrscPerm = db.prepareStatement(SqlTranscribe);
+		TrscPerm.setInt(1, user);
+		TrscPerm.setInt(2, page);
+		ResultSet x = TrscPerm.executeQuery();
+		while (x.next())
+			return true;
+		return false;
 	}
 	
 	public UserModel LoginUser (String name, String psw) throws SQLException
