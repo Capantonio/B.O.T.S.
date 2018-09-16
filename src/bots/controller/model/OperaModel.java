@@ -144,6 +144,7 @@ public class OperaModel {
 		    	}
 			});
 			Container.getChildren().add(accept);
+			
 
 			deny = new Button();
 			deny.setText("View");
