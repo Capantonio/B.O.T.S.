@@ -62,7 +62,7 @@ public class PageTable {
         PreparedStatement pstmt;
         try
         {
-        	query = "select idPage, ImagePage, Transcribe, LastUser, Revision from mydb.page where Opera_idOpera = ? AND Number = ?";
+        	query = "select idPage, ImagePage, Transcribe, LastUser, WorkTrsc from mydb.page where Opera_idOpera = ? AND Number = ?";
             pstmt = db.prepareStatement(query);
             pstmt.setInt(1, OperaId);
             pstmt.setInt(2, number);
@@ -76,7 +76,7 @@ public class PageTable {
                      //targetFile.close();
                      img = ImageIO.read(new ByteArrayInputStream(fileBytes));
                      image = SwingFXUtils.toFXImage(img, null);
-                     res = new PageModel(rs.getInt("idPage"), image, number, rs.getString("Transcribe"), rs.getString("LastUser"), rs.getString("Revision"));
+                     res = new PageModel(rs.getInt("idPage"), image, number, rs.getString("Transcribe"), rs.getString("LastUser"), rs.getString("WorkTrsc"));
             }    
         }
         catch (Exception e)

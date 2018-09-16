@@ -43,23 +43,33 @@ public class AdminClass {
 	private AnchorPane Container;
 	
 	@FXML
-	TextField TName = new TextField(),
-			TSurname = new TextField(),
-			TUsername = new TextField(),
-			TEmail = new TextField(),
-			TTranscriber = new TextField(),
-			TAdmin = new TextField(),
-			TRev = new TextField(),
-			TDownload = new TextField();
+	private TextField Title;
+	@FXML
+	private TextField Author;
+	@FXML
+	private TextField DataOpera;
+	
+	@FXML
+	private AnchorPane OperaContainer;
+	
+	@FXML
+	private AnchorPane RevContainer;
 	
 	
 	private LinkedList<UserModel> res = new LinkedList<UserModel>();
+	
+	private LinkedList<OperaModel> opres = new LinkedList<OperaModel>();
+	
+	private LinkedList<PageModel> prev = new LinkedList<PageModel>();
+	
+	private LinkedList<OperaModel> orev = new LinkedList<OperaModel>();
 	
 	public void setStart (MainStart startx)
 	{
 		start = startx;
 	}
 	
+	@FXML
 	public void handleSearch ()
 	{
 		res.clear();
@@ -70,5 +80,40 @@ public class AdminClass {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void handleOperaSearch()
+	{
+		opres.clear();
+		OperaContainer.getChildren().clear();
+		try
+		{
+			opres = start.mySql.OperaQuery.ListOpera(Title.getText(), Author.getText(), DataOpera.getText(), "", OperaContainer, this);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void handleRevOpera()
+	{
+		orev.clear();
+		RevContainer.getChildren().clear();
+		try
+		{
+			orev = start.mySql.OperaQuery.ListOpera("", "", "", "2", RevContainer, this);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void handleRevTrsc()
+	{
+		prev.clear();
+		RevContainer.getChildren().clear();
 	}
 }

@@ -90,7 +90,7 @@ public class MainStart extends Application {
             secondaryStage.sizeToScene();
             secondaryStage.show();
             
-            RevisionListClass controller = loader.getController();
+            TranscribeListClass controller = loader.getController();
             controller.setStart(this, user);
             
         } catch (IOException e) {

@@ -76,12 +76,55 @@
           </Tab>
           <Tab text="Library Management">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="Title" layoutX="71.0" layoutY="15.0" />
+                        <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="46.0" text="Title">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="Author" layoutX="312.0" layoutY="16.0" />
+                        <Label alignment="CENTER_RIGHT" layoutX="237.0" layoutY="15.0" prefHeight="26.0" prefWidth="65.0" text="Author">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="DataOpera" layoutX="531.0" layoutY="16.0" />
+                        <Label alignment="CENTER_RIGHT" layoutX="479.0" layoutY="15.0" prefHeight="26.0" prefWidth="46.0" text="Data">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="711.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleOperaSearch" prefHeight="25.0" prefWidth="143.0" text="SEARCH" />
+                        <ScrollPane layoutX="20.0" layoutY="55.0" prefHeight="703.0" prefWidth="849.0">
+                          <content>
+                            <AnchorPane fx:id="OperaContainer" minHeight="0.0" minWidth="0.0" prefHeight="699.0" prefWidth="846.0" />
+                          </content>
+                        </ScrollPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Revision Ticket">
+          <Tab text="Revision List">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="707.0" prefWidth="859.0">
+                          <content>
+                            <AnchorPane fx:id="RevContainer" minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="850.0" />
+                          </content>
+                        </ScrollPane>
+                        <Button layoutX="54.0" layoutY="728.0" mnemonicParsing="false" onAction="#handleRevOpera" prefHeight="37.0" prefWidth="342.0" text="Refresh Opera" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="81.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="461.0" layoutY="728.0" mnemonicParsing="false" onAction="#handleRevTrsc" prefHeight="37.0" prefWidth="342.0" text="Refresh Transcribe" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="81.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
