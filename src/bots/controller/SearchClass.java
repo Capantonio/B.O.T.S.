@@ -35,14 +35,8 @@ public class SearchClass {
 	private Button Admin;
 	
 	private MainStart start;
-	private String TitleText = "";
-	private String AuthorText = "";
-	private String DataText = "";
-	
-	private Boolean flagt = false, flaga = false, flagy = false;
-	
 
-	private LinkedList<ResultModel> res = new LinkedList<ResultModel>();
+	private LinkedList<OperaModel> res = new LinkedList<OperaModel>();
 	
 	public void setStart (MainStart startx)
 	{
@@ -59,41 +53,12 @@ public class SearchClass {
 	public void HandleSearch ()
 	{
 		res.clear();
-		if (!(Search.getText().equals("")))
-		{
-			TitleText = Search.getText();
-			flagt = true;
-		}
-		else
-		{
-			TitleText = Search.getText();
-			flagt = false;
-		}
-		if (!(AutSearch.getText().equals("")))
-		{
-			AuthorText = AutSearch.getText();
-			flaga = true;
-		}
-		else
-		{
-			AuthorText = AutSearch.getText();
-			flaga = false;
-		}
-		if (!(YearSearch.getText().equals("")))
-		{
-			DataText = YearSearch.getText(); 
-			flagy = true;
-		}
-		else
-		{
-			DataText = YearSearch.getText();
-			flagy = false;
-		}
+		
 		Container.getChildren().clear();
-		System.out.println(flagt.toString() + ":" + flaga.toString() + ":" + flagy.toString());
+		
 		//Search on DAO command
 		try {
-			res = start.mySql.OperaQuery.SearchOpera(TitleText, AuthorText, DataText, this, flagt, flaga, flagy, Container);
+			res = start.mySql.OperaQuery.SearchOpera(Search.getText(), AutSearch.getText(), YearSearch.getText(), null, this, Container, (Integer)1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

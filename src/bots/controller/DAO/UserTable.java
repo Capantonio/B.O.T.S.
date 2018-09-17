@@ -2,7 +2,6 @@ package bots.controller.DAO;
 
 import bots.controller.AdminClass;
 import bots.controller.TranscribeListClass;
-import bots.controller.model.ResultModel;
 import bots.controller.model.UserModel;
 import javafx.scene.layout.AnchorPane;
 
@@ -33,6 +32,22 @@ public class UserTable {
 		db = xcon;
 	}
 	
+	public void AddTrscList (Integer user, Integer page) throws SQLException
+	{
+		PreparedStatement AddQuery = db.prepareStatement("INSERT INTO mydb.permission_transcribe VALUE (?,?)");
+		AddQuery.setInt(1, user);
+		AddQuery.setInt(2, page);
+		AddQuery.executeUpdate();
+	}
+	
+	public void RemoveTrscList (Integer user, Integer page) throws SQLException
+	{
+		PreparedStatement RemoveQuery = db.prepareStatement("DELETE FROM mydb.permission_transcribe WHERE User=? and Page=?");
+		RemoveQuery.setInt(1, user);
+		RemoveQuery.setInt(2, page);
+		RemoveQuery.executeUpdate();
+	}
+	
 	public void LoadTrasncribeList (Integer id, TranscribeListClass obj) throws SQLException
 	{
 		PreparedStatement ListTrsc = db.prepareStatement(SqlTranscribe);
@@ -42,7 +57,7 @@ public class UserTable {
 		while (x.next())
 		{
 			count++;
-			obj.ShowPermission(x.getInt("Number"), x.getString("Title"), count);
+			obj.ShowPermission(x.getInt("Number"), x.getString("Title"), count, x.getInt("idPage"));
 		}
 	}
 	
@@ -76,7 +91,7 @@ public class UserTable {
 	
 	public Boolean TranscribePermission (Integer user, Integer page) throws SQLException
 	{
-		PreparedStatement TrscPerm = db.prepareStatement(SqlTranscribe);
+		PreparedStatement TrscPerm = db.prepareStatement("Select * From mydb.permission_transcribe Where User = ? AND Page = ?");
 		TrscPerm.setInt(1, user);
 		TrscPerm.setInt(2, page);
 		ResultSet x = TrscPerm.executeQuery();

@@ -99,7 +99,7 @@ public class AdminClass {
 		OperaContainer.getChildren().clear();
 		try
 		{
-			opres = start.mySql.OperaQuery.ListOpera(Title.getText(), Author.getText(), DataOpera.getText(), "", OperaContainer, this);
+			opres = start.mySql.OperaQuery.SearchOpera(Title.getText(), Author.getText(), DataOpera.getText(), this, null, OperaContainer, 0);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -113,7 +113,7 @@ public class AdminClass {
 		RevContainer.getChildren().clear();
 		try
 		{
-			orev = start.mySql.OperaQuery.ListOpera("", "", "", "2", RevContainer, this);
+			orev = start.mySql.OperaQuery.SearchOpera("", "", "",this, null, RevContainer, 2);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();

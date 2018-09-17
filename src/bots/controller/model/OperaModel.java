@@ -3,6 +3,7 @@ package bots.controller.model;
 import java.sql.SQLException;
 
 import bots.controller.AdminClass;
+import bots.controller.SearchClass;
 import bots.controller.model.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,13 +33,15 @@ public class OperaModel {
 	@FXML
 	public Label show;
 	@FXML
-	public Button showhide;
+	public Button showhide = new Button();
 	@FXML
-	public Button accept;
+	public Button accept = new Button();
 	@FXML
-	public Button deny;
+	public Button deny = new Button();
+	@FXML
+	public Button view = new Button();
 	
-	public OperaModel (Integer id, String tit, String aut, String data, String show, AnchorPane cont, Integer x, AdminClass parent)
+	public OperaModel (Integer id, String tit, String aut, String data, String show, AnchorPane cont, Integer x, AdminClass parent, Integer method) throws SQLException
 	{
 		ID = id;
 		Title = tit;
@@ -46,19 +49,31 @@ public class OperaModel {
 		Data = data;
 		Show = show;
 		Container = cont;
-		Show (x, parent);
+		Showa (x, parent, method);
 	}
 	
-	public OperaModel (Integer id, String Tit, String Aut, String datax, Integer PageN)
+	
+	public OperaModel (Integer id, String tit, String aut, String data, String show, AnchorPane cont, Integer x, SearchClass parent, Integer method) throws SQLException
 	{
 		ID = id;
-		Title = Tit;
-		Author = Aut;
-		Data = datax;
-		Pages = new PageModel[PageN+1];
-		Lenght = PageN+1;
+		Title = tit;
+		Author = aut;
+		Data = data;
+		Show = show;
+		Container = cont;
+		Shows (x, parent, method);
 	}
-
+	
+	public OperaModel (Integer id, String tit, String aut, String data, Integer xlenght) throws SQLException
+	{
+		ID = id;
+		Title = tit;
+		Author = aut;
+		Data = data;
+		Lenght = xlenght;
+		Pages = new PageModel[Lenght+1];
+	}
+	
 	public PageModel GetPage (Integer num)
 	{
 		return Pages[num];
@@ -74,97 +89,72 @@ public class OperaModel {
 		return Title;
 	}
 	
-	public void Show (Integer x, AdminClass parent)
+	public void Showa (Integer x, AdminClass parent, Integer method) throws SQLException
+	{
+		SetShow (title, 0, x * 30, 70, Title);
+		SetShow (author, 70, x * 30, 70, Author);
+		SetShow (data, 140, x * 30, 40, Data);
+		SetShow (show, 180, x * 30, 70, Show);
+		if (Show.equals("2"))
+		{
+			ShowButton(accept,210,x * 30,70,"Accept");
+			accept.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e)
+		    	{
+		    	}
+			});
+			ShowButton(deny,210,x * 30,70,"Deny");
+			deny.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e)
+		    	{	
+		    	}
+			});
+		}
+		else
+		{
+			ShowButton(showhide,210,x * 30,70,"Show/Hide");
+			showhide.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e)
+		    	{
+		    		if (Show.equals("1"))
+						try { parent.start.mySql.OperaQuery.SetShow(ID, "0");}
+		    		catch (SQLException e1) { e1.printStackTrace();}
+					else if (Show.equals("0"))
+						try { parent.start.mySql.OperaQuery.SetShow(ID, "1");}
+		    		catch (SQLException e1) { e1.printStackTrace();}
+		    	}
+			});
+		}
+		
+	}
+	
+	public void Shows (Integer x, SearchClass parent, Integer method) throws SQLException
 	{
 		SetShow (title, 0, x * 30, 70, Title);
 		SetShow (author, 70, x * 30, 70, Author);
 		SetShow (data, 140, x * 30, 40, Data);
 		SetShow (show, 180, x * 30, 30, Show);
-		if (Show.equals("1") || Show.equals("0"))
-		{
-			showhide = new Button();
-			showhide.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e)
-		    	{
-		    		if (Show.equals("1"))
-		    		{
-		    			try {
-							parent.start.mySql.OperaQuery.SetShow(ID, "0");
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-		    		}
-		    		else if (Show.equals("0"))
-		    		{
-		    			try {
-							parent.start.mySql.OperaQuery.SetShow(ID, "1");
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-		    		}
-		    	}
-			});
-			showhide.setText("Show/Hide");
-			showhide.setMinWidth(70);
-			showhide.setLayoutX(210);
-			showhide.setLayoutY(x*30);
-			Container.getChildren().add(showhide);
-		}
-		else
-		{
-			showhide = new Button();
-			showhide.setText("View");
-			showhide.setLayoutX(210);
-			showhide.setLayoutY(x*30);
-			showhide.setPrefWidth(60);
-			showhide.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e)
-		    	{
-		    		parent.start.changeStageOpera(ID);
-		    	}
-			});
-			Container.getChildren().add(showhide);
-			accept = new Button();
-
-			accept.setText("View");
-			accept.setLayoutX(270);
-			accept.setLayoutY(x*30);
-			accept.setPrefWidth(80);
-			accept.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e)
-		    	{
-					try {
-						parent.start.mySql.OperaQuery.SetShow(ID, "1");
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-		    	}
-			});
-			Container.getChildren().add(accept);
-			
-			
-
-			deny = new Button();
-			deny.setText("View");
-			deny.setLayoutX(270);
-			deny.setLayoutY(x*30);
-			deny.setPrefWidth(80);
-			deny.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e)
-		    	{
-		    		
-		    	}
-			});
-			Container.getChildren().add(deny);
-		}
+		ShowButton(view,210,x*30,70,"View");
+		view.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e)
+	    	{
+				parent.ReadOpera(ID);
+	    	}
+		});
 	}
 	
 	public void SetShow (Label obj, Integer x, Integer y, Integer width, String text)
 	{
 		obj = new Label();
+		obj.setText(text);
+		obj.setLayoutX(x);
+		obj.setLayoutY(y);
+		obj.setPrefWidth(width);
+		Container.getChildren().add(obj);
+	}
+	
+	public void ShowButton (Button obj, Integer x, Integer y, Integer width, String text)
+	{
 		obj.setText(text);
 		obj.setLayoutX(x);
 		obj.setLayoutY(y);

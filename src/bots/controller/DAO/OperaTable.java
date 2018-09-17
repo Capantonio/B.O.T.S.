@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import bots.controller.AdminClass;
+import bots.controller.SearchClass;
 import bots.controller.model.OperaModel;
-import bots.controller.model.ResultModel;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
@@ -17,7 +17,7 @@ public class OperaTable {
 
 	private Connection db;
 	private String SqlGet = "Select * From mydb.opera Where idOpera = ?";
-	private String SqlSearch = "Select idOpera, Title, Author, DataOpera From mydb.opera Where ";
+	private String SqlSearch = "Select * From mydb.opera Where ";
 	private String SqlTitle = "Title = ?";
 	private String SqlAuthor = "Author = ?";
 	private String SqlYear = "DataOpera = ?";
@@ -27,53 +27,69 @@ public class OperaTable {
 		db = xcon;
 	}
 	
-	public LinkedList<ResultModel> SearchOpera (String xtitle, String xauthor, String xyear, bots.controller.SearchClass object, Boolean flagt, Boolean flaga, Boolean flagy, AnchorPane cont ) throws SQLException
+	public LinkedList<OperaModel> SearchOpera (String xtitle, String xauthor, String xyear, AdminClass ca, SearchClass cs, AnchorPane cont, Integer method ) throws SQLException
 	{
 		String SqlQuery = SqlSearch;
-		if (!flagt)
+		if (xtitle.equals(""))
 			SqlQuery = SqlQuery + "!(" + SqlTitle + ")";
 		else
 			SqlQuery = SqlQuery + SqlTitle;
-		if (!flaga)
+		if (xauthor.equals(""))
 			SqlQuery = SqlQuery + " AND !(" + SqlAuthor + ")";
 		else
 			SqlQuery = SqlQuery + " AND " + SqlAuthor;
-		if (flagy)
-			SqlQuery = SqlQuery + " AND " + SqlYear;
-		else
+		if (xyear.equals(""))
 			SqlQuery = SqlQuery + " AND !(" + SqlYear + ")";
-		SqlQuery = SqlQuery + " AND ShowOpera = ?";
+		else
+			SqlQuery = SqlQuery + " AND " + SqlYear;
 		
 		PreparedStatement SearchOperaQuery = db.prepareStatement(SqlQuery);
 		
-		if (flagt)
-			{ SearchOperaQuery.setString(1, xtitle); }
-		else
-			{ SearchOperaQuery.setString(1, ""); }
+		SearchOperaQuery.setString(1, xtitle);
 		
-		if (flaga)
-			{ SearchOperaQuery.setString(2, xauthor); }
-		else
-			{ SearchOperaQuery.setString(2, ""); }
+		SearchOperaQuery.setString(2, xauthor);
 		
-		if (flagy)
-			{ SearchOperaQuery.setInt(3, Integer.parseInt (xyear)); }
+		if (xyear.equals(""))
+			SearchOperaQuery.setString(3, "");
 		else
-			{ SearchOperaQuery.setString(3, ""); }
-		
-		SearchOperaQuery.setString(4, "1");
+			SearchOperaQuery.setInt(3, Integer.parseInt (xyear));
 		
 		System.out.println(SearchOperaQuery.toString());
 		ResultSet x = SearchOperaQuery.executeQuery();
-		LinkedList<ResultModel> ResultList = new LinkedList<ResultModel>();
+		LinkedList<OperaModel> ResultList = new LinkedList<OperaModel>();
 		System.out.println("Get Result");
 		//For each element on result
 		int count = 0;
 		while (x.next())
 		{
-			System.out.println(x.getString("Title"));
-			ResultList.add(new ResultModel(x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getInt("idOpera"), object, cont, count));
-			count++;
+			if (method == 2)
+			{
+				if (x.getString("ShowOpera").equals("2"))
+				{
+					System.out.println(x.getString("Title"));
+					ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), cont, count, ca, method));
+					count++;
+				}
+			}
+			else if (method == 1)
+			{
+				if (x.getString("ShowOpera").equals("1"))
+				{
+					System.out.println(x.getString("Title"));
+					ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), cont, count, cs, method));
+					count++;
+				}
+			}
+			else
+			{
+				if (x.getString("ShowOpera").equals("0") || x.getString("ShowOpera").equals("1"))
+				{
+					System.out.println(x.getString("Title"));
+					ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), cont, count, ca, method));
+					count++;
+				}
+			}
+			
 		}
 		cont.setPrefHeight(count*30);
 		return ResultList;
@@ -89,49 +105,6 @@ public class OperaTable {
 		{
 			res = new OperaModel(x.getInt("idOpera"), x.getString("Title"), x.getString("Author"), x.getString("DataOpera"), x.getInt("Page"));
 		}
-		//Fill the opera class
-		return res;
-	}
-	
-	public LinkedList<OperaModel> ListOpera (String tit, String aut, String data, String show, AnchorPane cont, AdminClass parent) throws SQLException
-	{
-		LinkedList<OperaModel> res = new LinkedList<OperaModel>();
-		String Query = "Select * From mydb.opera Where ";
-		if (tit.equals(""))
-			Query = Query + "!(" + SqlTitle + ")";
-		else
-			Query = Query + SqlTitle;
-		if (aut.equals(""))
-			Query = Query + " AND !(" + SqlAuthor + ")";
-		else
-			Query = Query + " AND " + SqlAuthor;
-		if (data.equals(""))
-			Query = Query + " AND !(" + SqlYear + ")";
-		else
-			Query = Query + " AND " + SqlYear;
-		if ( !(show.equals("")) )
-				Query = Query + " AND ShowOpera = ?";
-			
-		PreparedStatement ListQuery = db.prepareStatement(Query);
-		
-		ListQuery.setString(1, tit);
-		ListQuery.setString(2, aut);
-		if (data.equals(""))
-			ListQuery.setString(3, "");
-		else
-			ListQuery.setInt(3, Integer.parseInt(data));
-		if ( !(show.equals("")) )
-			ListQuery.setString(4, "2");
-		ResultSet x = ListQuery.executeQuery();
-		Integer i=0;
-		while (x.next())
-		{
-			if (x.getString("ShowOpera").equals("2") && !(show.equals("2")) )
-				break;
-			res.add(new OperaModel(x.getInt("idOpera"),x.getString("Title"), x.getString("Author"), x.getString("DataOpera"), x.getString("ShowOpera"), cont, i, parent));
-			i++;
-		}
-		cont.setPrefHeight(30*i);
 		return res;
 	}
 	
@@ -142,5 +115,16 @@ public class OperaTable {
         pstmt.setString(1, x);
         pstmt.setInt(2, id);
         pstmt.executeUpdate();
+	}
+	
+	public Integer GetIdOpera (String title) throws SQLException
+	{
+		PreparedStatement GeneralQuery = db.prepareStatement("Select idOpera From mydb.opera Where Title = ?");
+		GeneralQuery.setString(1, title);
+		ResultSet x = GeneralQuery.executeQuery();
+		while (x.next())
+			return x.getInt("idOpera");
+		return null;
+		
 	}
 }

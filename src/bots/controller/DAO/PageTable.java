@@ -34,7 +34,7 @@ public class PageTable {
                     FileInputStream fis = new FileInputStream(file);
                     len = (int)file.length();
 
-                    query = ("insert Into mydb.page (ImagePage, Number, Lenght, Opera_idOpera) VALUES(?,?,?,?)");
+                    query = ("insert Into mydb.page (ImagePage, Number, Lenght, Opera_idOpera, LockOpera) VALUES(?,?,?,?,'0')");
                     pstmt = db.prepareStatement(query);
                     pstmt.setInt(2, num);
                     pstmt.setInt(3, len);

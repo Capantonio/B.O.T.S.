@@ -8,9 +8,9 @@
 
 <AnchorPane maxWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="bots.controller.TranscribeListClass">
    <children>
-      <Button layoutX="417.0" layoutY="358.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="ADD" />
-      <TextField layoutX="226.0" layoutY="358.0" promptText="Opera Page" />
-      <TextField layoutX="38.0" layoutY="358.0" promptText="Opera Title" />
+      <Button layoutX="417.0" layoutY="358.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0" prefWidth="140.0" text="ADD" />
+      <TextField fx:id="Page" layoutX="226.0" layoutY="358.0" promptText="Opera Page" />
+      <TextField fx:id="Title" layoutX="38.0" layoutY="358.0" promptText="Opera Title" />
       <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="328.0" prefWidth="572.0">
         <content>
           <AnchorPane fx:id="Container" minHeight="0.0" minWidth="0.0" prefHeight="326.0" prefWidth="570.0" />
