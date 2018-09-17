@@ -31,6 +31,8 @@ public class SearchClass {
 	private AnchorPane Container;
 	@FXML
 	private ScrollPane Scrollp;
+	@FXML
+	private Button Admin;
 	
 	private MainStart start;
 	private String TitleText = "";
@@ -45,7 +47,13 @@ public class SearchClass {
 	public void setStart (MainStart startx)
 	{
 		start = startx;
+		if (start.ConnectedUser.Admin.equals("0"))
+			Admin.setVisible(false);
 	}
+	 
+	 public void Logout() {
+	  start.changeStageLogin();
+	 }
 	
 	@FXML
 	public void HandleSearch ()
@@ -115,6 +123,12 @@ public class SearchClass {
 		{
 			//load image
 		}
+	}
+	
+	@FXML
+	public void handleAdmin()
+	{
+		start.changeStageAdmin();
 	}
 	
 	public void ReadOpera (int xid)

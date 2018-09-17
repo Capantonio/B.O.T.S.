@@ -70,6 +70,16 @@ public class AdminClass {
 	}
 	
 	@FXML
+	 public void ViewOpera(){
+	  start.changeStageSearch();  
+	 }
+	 
+	@FXML
+	 public void Logout() {
+	  start.changeStageLogin();
+	 }
+	
+	@FXML
 	public void handleSearch ()
 	{
 		res.clear();

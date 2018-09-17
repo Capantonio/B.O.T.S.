@@ -1,6 +1,7 @@
 package bots.controller.DAO;
 
 import bots.controller.AdminClass;
+import bots.controller.TranscribeListClass;
 import bots.controller.model.ResultModel;
 import bots.controller.model.UserModel;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +16,7 @@ public class UserTable {
 	private String SqlExist = "Select * From mydb.user Where Nickname = ? AND Email = ?";
 	private String SqlRegister = "Insert Into mydb.user (Name, Surname, Email, Nickname, Password, Transcriber, Download, Admin, Revisioner) Value (?,?,?,?,?,'0','0','0','0')";
 	private String SqlModify = "Update mydb.user Set Name = ?, Surname = ?, Nickname = ?, Email = ?, Transcriber = ?, Admin = ?, Revisioner = ?, Download = ? Where idUser = ?";
-	private String SqlTranscribe = "Select * From mydb.permission_transcribe Where User = ? AND Page = ?";
+	private String SqlTranscribe = "Select * From mydb.permission_transcribe Inner Join mydb.page On permission_transcribe.Page = page.idPage Inner Join opera On page.Opera_idOpera = opera.idOpera Where User = ?";
 	
 	private String SqlSearch = "Select idUser, Name, Surname, Nickname, Email, Transcriber, Download, Admin, Revisioner  From mydb.user Where ";
 	private String SqlName = "Name = ?";
@@ -30,6 +31,19 @@ public class UserTable {
 	public UserTable(Connection xcon)
 	{
 		db = xcon;
+	}
+	
+	public void LoadTrasncribeList (Integer id, TranscribeListClass obj) throws SQLException
+	{
+		PreparedStatement ListTrsc = db.prepareStatement(SqlTranscribe);
+		ListTrsc.setInt(1, id);
+		ResultSet x = ListTrsc.executeQuery();
+		Integer count = 0;
+		while (x.next())
+		{
+			count++;
+			obj.ShowPermission(x.getInt("Number"), x.getString("Title"), count);
+		}
 	}
 	
 	public void ChangeUser (UserModel x) throws SQLException

@@ -1,5 +1,7 @@
 package bots.controller.model;
 
+import java.sql.SQLException;
+
 import bots.controller.AdminClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -119,7 +121,7 @@ public class UserModel {
 		Trsc.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e)
 		    {
-		    	Parent.start.PopupUser(user);
+		    	Parent.start.PopupTrsc(user);
 		    }
 		});
 		Trsc.setText("List");

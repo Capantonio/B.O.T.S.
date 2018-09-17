@@ -81,7 +81,7 @@ public class MainStart extends Application {
         	secondaryStage.centerOnScreen();
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainStart.class.getResource("view/RevisionLstPopup.fxml"));
+            loader.setLocation(MainStart.class.getResource("view/TranscribeListPopup.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Show the scene containing the root layout.
