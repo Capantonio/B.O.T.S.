@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.ViewerClass">
+<AnchorPane fx:id="Container" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.ViewerClass">
    <children>
       <ImageView fx:id="Page" fitHeight="425.0" fitWidth="426.0" layoutX="46.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
       <TextArea fx:id="Transcribe" layoutX="537.0" layoutY="77.0" prefHeight="425.0" prefWidth="426.0" />

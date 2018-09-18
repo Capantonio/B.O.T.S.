@@ -1,10 +1,14 @@
 package bots.controller;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,6 +41,15 @@ public class ViewerClass {
 	private Button cancel;
 	@FXML
 	private Button apply;
+	@FXML
+	private AnchorPane Container;
+	private Integer Method;
+	
+	
+	@FXML
+	private Button Rev_a = new Button();
+	@FXML
+	private Button Rev_d = new Button();
 	
 	@FXML
 	private Button button1, button2, button3, button4;
@@ -48,10 +61,11 @@ public class ViewerClass {
 	private Integer PageNum;
 	
 	
-	public void setStart (MainStart startx, Integer opload) throws SQLException
+	public void setStart (MainStart startx, Integer opload, Integer method, Integer page) throws SQLException
 	{
 		start = startx;
 		OperaID = opload;
+		Method = method;
 		//Load Opera from DB
 		try {
 			LoadOpera = start.mySql.OperaQuery.GetOpera(opload);
@@ -63,26 +77,118 @@ public class ViewerClass {
 		cancel.setVisible(false);
 		apply.setVisible(false);
 		PageNumber.setEditable(false);
-		LoadOpera.Pages[1] = start.mySql.PageQuery.GetPageFromOpera(opload, 1);
-		PageNum = 1;
+		if (Method == 2)
+			PageNum = page;
+		else
+			PageNum = 1;
+		LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(opload, PageNum);
 		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
-		Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
+		if (Method == 2)
+			Transcribe.setText(LoadOpera.GetPage(PageNum).WorkTrsc);
+		else
+			Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
 		PageNumber.setText(PageNum.toString());
 		Title.setText(LoadOpera.GetTitle());
-		download.setVisible(start.ConnectedUser.Download.equals("1"));
-		trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[1].PageID));
+		if (Method == 0)
+			download.setVisible(start.ConnectedUser.Download.equals("1"));
+		else
+			download.setVisible(false);
+		if (Method == 0)
+			trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[1].PageID));
+		else
+			trsc.setVisible(false);
+		
+		if (Method == 1)
+		{
+			Rev_a.setText("Accept");
+			Rev_a.setLayoutX(400);
+			Rev_a.setLayoutY(600);
+			Rev_a.setPrefWidth(80);
+			Rev_a.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e)
+		    	{
+					try {
+						start.mySql.OperaQuery.SetShow(OperaID, "1");
+						start.changeStageAdmin();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    	}
+			});
+			Container.getChildren().add(Rev_a);
+			Rev_d.setText("Refuse");
+			Rev_d.setLayoutX(500);
+			Rev_d.setLayoutY(600);
+			Rev_d.setPrefWidth(80);
+			Rev_d.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e)
+		    	{
+					try {
+						start.mySql.PageQuery.DeletePages(OperaID);
+						start.mySql.OperaQuery.DeleteOpera(OperaID);
+						start.changeStageAdmin();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    	}
+			});
+			Container.getChildren().add(Rev_d);
+		}
+		
+		if (Method == 2)
+		{
+			Rev_a.setText("Accept");
+			Rev_a.setLayoutX(400);
+			Rev_a.setLayoutY(600);
+			Rev_a.setPrefWidth(80);
+			Rev_a.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e)
+		    	{
+					try {
+						start.mySql.PageQuery.AcceptTranscribe(LoadOpera.GetPage(PageNum).PageID);
+						start.changeStageAdmin();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    	}
+			});
+			Container.getChildren().add(Rev_a);
+			Rev_d.setText("Refuse");
+			Rev_d.setLayoutX(500);
+			Rev_d.setLayoutY(600);
+			Rev_d.setPrefWidth(80);
+			Rev_d.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e)
+		    	{
+					try {
+						start.mySql.PageQuery.DenyTranscribe(LoadOpera.GetPage(PageNum).PageID);
+						start.changeStageAdmin();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    	}
+			});
+			Container.getChildren().add(Rev_d);
+		}
 	}
 	
 	@FXML
 	public void handleBackSearch ()
 	{
-		start.changeStageSearch();
+		if (Method == 0)
+			start.changeStageSearch();
+		else
+			start.changeStageAdmin();
 	}
 	
 	@FXML
 	public void HandleForward () throws SQLException
 	{
-		if (PageNum < LoadOpera.GetLenght()+1)
+		if (PageNum < LoadOpera.GetLenght()+1  && Method != 2)
 		{
 			PageNum++;
 			if (LoadOpera.Pages[PageNum] == null)
@@ -90,14 +196,17 @@ public class ViewerClass {
 			Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
 			Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
 			PageNumber.setText(PageNum.toString());
-			trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+			if (Method == 0)
+				trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+			else
+				trsc.setVisible(false);
 		}
 	}
 	
 	@FXML
 	public void HandleBackward () throws SQLException
 	{
-		if (PageNum > 1)
+		if (PageNum > 1 && Method != 2)
 		{
 			PageNum--;
 			if (LoadOpera.Pages[PageNum] == null)
@@ -105,43 +214,67 @@ public class ViewerClass {
 			Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
 			Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
 			PageNumber.setText(PageNum.toString());
-			trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+			if (Method == 0)
+				trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+			else
+				trsc.setVisible(false);
 		}
 	}
 	
 	@FXML
 	public void HandleStart () throws SQLException
 	{
-		PageNum = 1;
-		if (LoadOpera.Pages[PageNum] == null)
-			LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
-		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
-		Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
-		PageNumber.setText(PageNum.toString());
-		trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+		if (Method != 2)
+		{
+			PageNum = 1;
+			if (LoadOpera.Pages[PageNum] == null)
+				LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
+			Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
+			Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
+			PageNumber.setText(PageNum.toString());
+			if (Method == 0)
+				trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+			else
+				trsc.setVisible(false);
+		}
 	}
 	
 	@FXML
 	public void HandleEnd () throws SQLException
 	{
-		PageNum = LoadOpera.GetLenght()+1;
-		if (LoadOpera.Pages[PageNum] == null)
-			LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
-		Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
-		Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
-		PageNumber.setText(PageNum.toString());
-		trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+		if (Method != 2)
+		{
+			PageNum = LoadOpera.GetLenght();
+			if (LoadOpera.Pages[PageNum] == null)
+				LoadOpera.Pages[PageNum] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, PageNum);
+			Page.setImage(LoadOpera.GetPage(PageNum).GetImage());
+			Transcribe.setText(LoadOpera.GetPage(PageNum).Transcribe);
+			PageNumber.setText(PageNum.toString());
+			if (Method == 0)
+				trsc.setVisible(start.mySql.UserQuery.TranscribePermission(start.ConnectedUser.ID, LoadOpera.Pages[PageNum].PageID));
+			else
+				trsc.setVisible(false);
+		}
 	}
 	
+	public String getJarFolder() {
+        System.out.println("Working Directory = " +
+               System.getProperty("user.dir"));
+        return System.getProperty("user.dir");
+   }
+
+
 	@FXML
 	public void handleDownload () throws IOException
 	{
-		for (int i = 1; i < LoadOpera.GetLenght(); i ++)
+		File F = new File(getJarFolder() +  "\\" + LoadOpera.GetTitle());
+		F.mkdirs();
+		for (int i = 1; i < LoadOpera.GetLenght()+1; i ++)
 		{
 			OutputStream targetFile;
 			if (LoadOpera.Pages[i] == null)
 				LoadOpera.Pages[i] = start.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, i);
-			targetFile = new FileOutputStream("C:\\Users\\Fabio\\Desktop\\Fabio\\Univaq3\\" + LoadOpera.GetTitle() + "_" + LoadOpera.Pages[i].PageNumber + ".PNG");
+			targetFile = new FileOutputStream(getJarFolder() + "\\" + LoadOpera.GetTitle() + "\\" + LoadOpera.GetTitle() + "_" + LoadOpera.Pages[i].PageNumber + ".JPG");
 			ImageIO.write(SwingFXUtils.fromFXImage(LoadOpera.Pages[i].PageImage, null), "PNG", targetFile);
 			//byte[] fileBytes = x.PageImage.getBytes("ImagePage");
 			//targetFile.write(fileBytes);

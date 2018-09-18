@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 public class AdminClass {
 
 	public MainStart start;
-	private UserModel appo;
 	
 	@FXML
 	private TextField Name;
@@ -125,5 +124,13 @@ public class AdminClass {
 	{
 		prev.clear();
 		RevContainer.getChildren().clear();
+		try
+		{
+			prev = start.mySql.PageQuery.GetRevPage(this, RevContainer);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+
 	}
 }

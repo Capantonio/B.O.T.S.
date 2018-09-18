@@ -183,7 +183,7 @@ public class MainStart extends Application {
         }
 	}
 	
-	public void changeStageOpera (Integer opload)
+	public void changeStageOpera (Integer opload, Integer Method, Integer page)
 	{
 		try {
 		FXMLLoader loader = new FXMLLoader();
@@ -197,7 +197,7 @@ public class MainStart extends Application {
         
         ViewerClass controller = loader.getController();
         try {
-			controller.setStart(this, opload);
+			controller.setStart(this, opload, Method, page);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -213,6 +213,8 @@ public class MainStart extends Application {
     }
 	
 	public static void main(String[] args) {
+		 System.out.println("Working Directory = " +
+	              System.getProperty("user.dir"));
 		launch(args);
 	}
 }

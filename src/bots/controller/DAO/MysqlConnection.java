@@ -5,9 +5,6 @@ import java.sql.*;
 public class MysqlConnection 
 {
 	private Connection connect = null;
-    private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
     
     public UserTable UserQuery;
     public OperaTable OperaQuery;
@@ -40,24 +37,5 @@ public class MysqlConnection
             throw e;
         }
  	}
-	
-	// You need to close the resultSet
-    private void close() {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
-
-        }
-    }
 	
 }

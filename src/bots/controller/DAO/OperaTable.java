@@ -27,6 +27,13 @@ public class OperaTable {
 		db = xcon;
 	}
 	
+	public void DeleteOpera (Integer id) throws SQLException
+	{
+		PreparedStatement DelOpera = db.prepareStatement("Delete From mydb.opera Where idOpera = ?");
+		DelOpera.setInt(1, id);
+		DelOpera.executeUpdate();
+	}
+	
 	public LinkedList<OperaModel> SearchOpera (String xtitle, String xauthor, String xyear, AdminClass ca, SearchClass cs, AnchorPane cont, Integer method ) throws SQLException
 	{
 		String SqlQuery = SqlSearch;
@@ -94,6 +101,26 @@ public class OperaTable {
 		cont.setPrefHeight(count*30);
 		return ResultList;
 	}
+	
+	public void LoadOpera(String Title, String Author, Integer Page, String Data)
+	  {
+	    String query;
+	    PreparedStatement pstmt;
+	        
+	    try 
+	    {
+	      query = ("insert Into mydb.opera (Title, Author, DataOpera, Page, ShowOpera) VALUES (?,?,?,?,'2')");
+	      pstmt = db.prepareStatement(query);
+	      pstmt.setString(1, Title);
+	      pstmt.setString(2, Author);
+	      pstmt.setString(3, Data);
+	      pstmt.setInt(4, Page);  
+	      pstmt.executeUpdate();
+	    }
+	    catch(Exception e){
+	      e.printStackTrace();
+	    }
+	  }
 	
 	public OperaModel GetOpera (int xid) throws SQLException
 	{

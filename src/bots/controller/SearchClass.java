@@ -70,25 +70,30 @@ public class SearchClass {
 	}
 	
 	@FXML
-	public void handleLoad ()
-	{
-		String Title="", Author="", Page="", Path="";
-		while (Title.equals(""))
-			Title = JOptionPane.showInputDialog("Enter the title:");
-		while (Title.equals(""))
-			Author = JOptionPane.showInputDialog("Enter the author:");
-		while (Title.equals(""))
-			Page = JOptionPane.showInputDialog("Enter the number of page:");
-		while (Title.equals(""))
-			Path = JOptionPane.showInputDialog("Enter the path of images:");
-		
-		Integer x = Integer.parseInt(Page);
-		//create opera
-		for (int i = 0; i < x; i++)
-		{
-			//load image
-		}
-	}
+	  public void handleLoad () throws SQLException
+	  {
+	    String Title="", Author="", Page="", Path="", Data="";
+	    while (Title.equals(""))
+	      Title = JOptionPane.showInputDialog("Enter the title:");
+	    while (Author.equals(""))
+	      Author = JOptionPane.showInputDialog("Enter the author:");
+	    while (Page.equals(""))
+	      Page = JOptionPane.showInputDialog("Enter the number of page:");
+	    while (Data.equals(""))
+	      Data = JOptionPane.showInputDialog("Enter the data");
+	    while (Path.equals(""))
+	      Path = JOptionPane.showInputDialog("Enter the path of images:");
+	    
+	    Integer x = Integer.parseInt(Page);
+	    start.mySql.OperaQuery.LoadOpera(Title, Author, x, Data);
+	    Integer y = start.mySql.OperaQuery.GetIdOpera(Title);
+	    
+	    //create opera
+	    for (int i = 1; i < x+1; i++)
+	    {
+	      start.mySql.PageQuery.LoadImage(y, Path + "\\" + Title +  "_" + Page + ".JPG" , x);
+	    }
+	  }
 	
 	@FXML
 	public void handleAdmin()
@@ -98,7 +103,7 @@ public class SearchClass {
 	
 	public void ReadOpera (int xid)
 	{
-		start.changeStageOpera(xid);
+		start.changeStageOpera(xid, 0, null);
 	}
 	
 }

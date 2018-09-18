@@ -7,11 +7,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.sql.*;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+
+import bots.controller.AdminClass;
 import bots.controller.model.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 
 public class PageTable {
 
@@ -20,6 +24,34 @@ public class PageTable {
 	public PageTable(Connection xcon)
 	{
 		db = xcon;
+	}
+	
+	public void DeletePages (Integer id) throws SQLException
+	{
+		PreparedStatement DelPage = db.prepareStatement("Delete From mydb.page Where Opera_idOpera = ?");
+		DelPage.setInt(1, id);
+		DelPage.executeUpdate();
+	}
+	
+	public void DenyTranscribe (Integer page) throws SQLException
+	{
+		PreparedStatement AlterTrsc = db.prepareStatement("UPDATE mydb.page SET WorkTrsc='' WHERE idPage=?");
+		AlterTrsc.setInt(1, page);
+		AlterTrsc.executeUpdate();
+	}
+	
+	public void AcceptTranscribe (Integer page) throws SQLException
+	{
+		String data = null;
+		PreparedStatement AlterTrsc = db.prepareStatement("SELECT WorkTrsc FROM mydb.page WHERE idPage=?");
+		AlterTrsc.setInt(1, page);
+		ResultSet x = AlterTrsc.executeQuery();
+		while (x.next())
+			data = x.getString("WorkTrsc");
+		PreparedStatement AlterTrsc2 = db.prepareStatement("UPDATE mydb.page SET WorkTrsc='', Transcribe=? WHERE idPage=?");
+		AlterTrsc2.setString(1, data);
+		AlterTrsc2.setInt(2, page);
+		AlterTrsc2.executeUpdate();
 	}
 	
 	public void LoadImage(Integer opera, String img, Integer num)
@@ -50,6 +82,20 @@ public class PageTable {
                     e.printStackTrace();
             }
     }
+	
+	public LinkedList<PageModel> GetRevPage (AdminClass obj, AnchorPane container) throws SQLException
+	{
+		LinkedList<PageModel> result = new LinkedList<PageModel>();
+		PreparedStatement Query = db.prepareStatement("SELECT * FROM mydb.page INNER JOIN mydb.opera ON mydb.page.Opera_idOpera = idOpera WHERE !(WorkTrsc='')");
+		ResultSet x = Query.executeQuery();
+		Integer Counter = 0;
+		while (x.next())
+		{
+			result.add(new PageModel(x.getInt("idPage"), x.getInt("Number"), x.getString("Title"), x.getInt("idOpera"), x.getString("Transcribe"), x.getString("LastUser"), x.getString("WorkTrsc"),obj,Counter,container));
+			Counter ++;
+		}
+		return result;
+	}
 	
 	
 	public PageModel GetPageFromOpera(Integer OperaId,Integer number)

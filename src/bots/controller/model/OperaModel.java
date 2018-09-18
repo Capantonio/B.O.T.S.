@@ -97,16 +97,11 @@ public class OperaModel {
 		SetShow (show, 180, x * 30, 70, Show);
 		if (Show.equals("2"))
 		{
-			ShowButton(accept,210,x * 30,70,"Accept");
-			accept.setOnAction(new EventHandler<ActionEvent>() {
+			ShowButton(view,210,x*30,70,"View");
+			view.setOnAction(new EventHandler<ActionEvent>() {
 				@Override public void handle(ActionEvent e)
 		    	{
-		    	}
-			});
-			ShowButton(deny,210,x * 30,70,"Deny");
-			deny.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e)
-		    	{	
+					parent.start.changeStageOpera(ID, 1, null);
 		    	}
 			});
 		}
