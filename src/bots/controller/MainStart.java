@@ -7,10 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.Stage;
-
 import bots.controller.DAO.*;
 import bots.controller.model.*;
 
@@ -34,9 +31,8 @@ public class MainStart extends Application {
 	
 	public void initRootLayout() {
         try {
-            // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainStart.class.getResource("view/Loginview.fxml"));
+            loader.setLocation(MainStart.class.getResource("view/LoginView.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Show the scene containing the root layout.

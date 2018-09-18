@@ -4,15 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.sql.*;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+
 import bots.controller.AdminClass;
-import bots.controller.model.*;
+import bots.controller.model.PageModel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;

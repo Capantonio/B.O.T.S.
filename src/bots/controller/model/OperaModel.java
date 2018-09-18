@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import bots.controller.AdminClass;
 import bots.controller.SearchClass;
-import bots.controller.model.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

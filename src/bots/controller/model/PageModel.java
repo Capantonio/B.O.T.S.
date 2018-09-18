@@ -1,9 +1,6 @@
 package bots.controller.model;
 
-import java.awt.image.BufferedImage;
-
 import bots.controller.AdminClass;
-import bots.controller.model.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

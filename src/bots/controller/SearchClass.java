@@ -1,14 +1,9 @@
 package bots.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.scene.layout.*;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -58,7 +53,7 @@ public class SearchClass {
 		
 		//Search on DAO command
 		try {
-			res = start.mySql.OperaQuery.SearchOpera(Search.getText(), AutSearch.getText(), YearSearch.getText(), null, this, Container, (Integer)1);
+			res = start.mySql.OperaQuery.SearchOpera(Search.getText(), AutSearch.getText(), YearSearch.getText(), null, this, Container, 1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,17 +5,9 @@ import bots.controller.model.*;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import bots.controller.DAO.*;
-import javafx.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.*;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
 
 public class AdminClass {
 

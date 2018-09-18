@@ -1,16 +1,10 @@
 package bots.controller.model;
 
-import java.sql.SQLException;
-
 import bots.controller.AdminClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 public class UserModel {
