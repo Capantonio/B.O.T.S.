@@ -62,10 +62,4 @@ public class PopupUserClass {
 	{
 		start.ClosePopup();
 	}
-	
-	@FXML
-	private void handleActive()
-	{
-	}
-
 }

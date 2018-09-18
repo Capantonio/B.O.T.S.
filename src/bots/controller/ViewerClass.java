@@ -187,7 +187,7 @@ public class ViewerClass {
 	@FXML
 	public void HandleForward () throws SQLException
 	{
-		if (PageNum < LoadOpera.GetLenght()+1  && Method != 2)
+		if (PageNum < LoadOpera.GetLenght()  && Method != 2)
 		{
 			PageNum++;
 			if (LoadOpera.Pages[PageNum] == null)

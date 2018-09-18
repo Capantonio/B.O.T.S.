@@ -86,7 +86,7 @@ public class SearchClass {
 	    //create opera
 	    for (int i = 1; i < x+1; i++)
 	    {
-	      start.mySql.PageQuery.LoadImage(y, Path + "\\" + Title +  "_" + Page + ".JPG" , x);
+	      start.mySql.PageQuery.LoadImage(y, Path + "\\" + Title +  "_" + i + ".JPG" , i);
 	    }
 	  }
 	
