@@ -132,7 +132,7 @@ public class StageController {
         primaryStage.centerOnScreen();
         
         GuiAdmin controller = loader.getController();
-        controller.setStart(this);
+        controller.setStart();
         
 		} catch (IOException e) {
             e.printStackTrace();

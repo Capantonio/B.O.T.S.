@@ -1,5 +1,6 @@
 package bots.GUIController;
 
+import bots.Controller.AdminClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -39,5 +40,10 @@ public class GuiAdmin {
 	@FXML
 	private AnchorPane RevContainer;
 	
+	public AdminClass controller;
 	
+	public void SetStart()
+	{
+		controller = new AdminClass();
+	}
 }
