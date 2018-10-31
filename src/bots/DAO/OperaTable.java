@@ -65,14 +65,12 @@ public class OperaTable {
 		LinkedList<OperaModel> ResultList = new LinkedList<OperaModel>();
 		System.out.println("Get Result");
 		//For each element on result
-		int count = 0;
 		while (x.next())
 		{
 			if (x.getString("ShowOpera").equals("1"))
 			{
 				System.out.println(x.getString("Title"));
 				ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), x.getInt("Page")));
-				count++;
 			}
 		}
 		return ResultList;
@@ -129,5 +127,21 @@ public class OperaTable {
 			return x.getInt("idOpera");
 		return null;
 		
+	}
+	
+	public LinkedList <OperaModel> GetOperaRev () throws SQLException
+	{
+		String SqlQuery = "SELECT *FROM db.opera WHERE ShowOpera = 2";
+		PreparedStatement SearchOperaQuery = db.prepareStatement(SqlQuery);
+		ResultSet x = SearchOperaQuery.executeQuery();
+		LinkedList<OperaModel> ResultList = new LinkedList<OperaModel>();
+		System.out.println("Get Result");
+		//For each element on result
+		while (x.next())
+		{
+			System.out.println(x.getString("Title"));
+			ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), x.getInt("Page")));
+		}
+		return ResultList;
 	}
 }

@@ -60,7 +60,7 @@ public class GuiSearch {
         while(it.hasNext()) {
         	OperaModel x = it.next();
         	
-        	Shows(count, x.ID, x.Title, x.Author, x.Data, 0);
+        	Shows(count, x, 0);
         	count++;
         }
 	}
@@ -77,12 +77,12 @@ public class GuiSearch {
 		MainStart.GUI.changeStageAdmin();
 	}
 	
-	public void Shows (Integer x,  Integer id, String Title, String Author, String Data, Integer method) throws SQLException
+	public void Shows (Integer x, OperaModel op, Integer method) throws SQLException
 	{
-		SetShow (new Label(), 0, x * 30, 70, Title);
-		SetShow (new Label(), 70, x * 30, 70, Author);
-		SetShow (new Label(), 140, x * 30, 40, Data);
-		ShowButton(new Button(),210,x*30,70,"View",id,method);
+		SetShow (new Label(), 0, x * 30, 70, op.Title);
+		SetShow (new Label(), 70, x * 30, 70, op.Author);
+		SetShow (new Label(), 140, x * 30, 40, op.Data);
+		ShowButton(new Button(),210,x*30,70,"View",op,method);
 	}
 	
 	public void SetShow (Label obj, Integer x, Integer y, Integer width, String text)
@@ -95,7 +95,7 @@ public class GuiSearch {
 		Container.getChildren().add(obj);
 	}
 	
-	public void ShowButton (Button obj, Integer x, Integer y, Integer width, String text, Integer id, Integer method)
+	public void ShowButton (Button obj, Integer x, Integer y, Integer width, String text, OperaModel op, Integer method)
 	{
 		obj.setText(text);
 		obj.setLayoutX(x);
@@ -104,7 +104,7 @@ public class GuiSearch {
 		obj.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e)
 	    	{
-				MainStart.GUI.changeStageOpera(id, method, 1);
+				MainStart.GUI.changeStageOpera(op, method, 1);
 	    	}
 		});
 		Container.getChildren().add(obj);

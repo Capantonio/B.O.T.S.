@@ -10,6 +10,7 @@ import bots.Controller.RegisterClass;
 import bots.Controller.SearchClass;
 import bots.Controller.TranscribeListClass;
 import bots.Controller.ViewerClass;
+import bots.Model.OperaModel;
 import bots.Model.UserModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -84,7 +85,7 @@ public class StageController {
             secondaryStage.show();
             
             GuiUser controller = loader.getController();
-            controller.setStart(this, user);
+            controller.setStart(user);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,7 +108,7 @@ public class StageController {
             secondaryStage.show();
             
             GuiTranscriber controller = loader.getController();
-            controller.setStart(this, user);
+            controller.setStart(user);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,7 +160,7 @@ public class StageController {
         }
 	}
 	
-	public void changeStageOpera (Integer opload, Integer Method, Integer page)
+	public void changeStageOpera (OperaModel opload, Integer Method, Integer page)
 	{
 		try {
 		FXMLLoader loader = new FXMLLoader();
@@ -173,7 +174,7 @@ public class StageController {
         
         GuiViewer controller = loader.getController();
         try {
-			controller.setStart(this, opload, Method, page);
+			controller.setStart(opload, Method, page);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

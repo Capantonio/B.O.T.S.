@@ -81,7 +81,7 @@ public class PageTable {
             }
     }
 	
-	public LinkedList<PageModel> GetRevPage (AdminClass obj, AnchorPane container) throws SQLException
+	public LinkedList<PageModel> GetRevPage () throws SQLException
 	{
 		LinkedList<PageModel> result = new LinkedList<PageModel>();
 		PreparedStatement Query = db.prepareStatement("SELECT * FROM mydb.page INNER JOIN mydb.opera ON mydb.page.Opera_idOpera = idOpera WHERE !(WorkTrsc='')");
@@ -89,7 +89,7 @@ public class PageTable {
 		Integer Counter = 0;
 		while (x.next())
 		{
-			result.add(new PageModel(x.getInt("idPage"), x.getInt("Number"), x.getString("Title"), x.getInt("idOpera"), x.getString("Transcribe"), x.getString("LastUser"), x.getString("WorkTrsc"),obj,Counter,container));
+			result.add(new PageModel(x.getInt("idPage"), x.getInt("Number"), x.getInt("Opera_idOpera")));
 			Counter ++;
 		}
 		return result;
@@ -106,7 +106,7 @@ public class PageTable {
         PreparedStatement pstmt;
         try
         {
-        	query = "select idPage, ImagePage, Transcribe, LastUser, WorkTrsc from mydb.page where Opera_idOpera = ? AND Number = ?";
+        	query = "select idPage, ImagePage, Transcribe from mydb.page where Opera_idOpera = ? AND Number = ?";
             pstmt = db.prepareStatement(query);
             pstmt.setInt(1, OperaId);
             pstmt.setInt(2, number);
@@ -120,7 +120,7 @@ public class PageTable {
                      //targetFile.close();
                      img = ImageIO.read(new ByteArrayInputStream(fileBytes));
                      image = SwingFXUtils.toFXImage(img, null);
-                     res = new PageModel(rs.getInt("idPage"), image, number, rs.getString("Transcribe"), rs.getString("LastUser"), rs.getString("WorkTrsc"));
+                     res = new PageModel(rs.getInt("idPage"), image, number, rs.getString("Transcribe"));
             }    
         }
         catch (Exception e)

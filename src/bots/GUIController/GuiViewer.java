@@ -68,7 +68,7 @@ public class GuiViewer {
 		else
 			PageNumber.setText("1");
 		Title.setText(controller.LoadOpera.Title);
-		Page.setImage(controller.LoadOpera.GetPage(page).GetImage());
+		Page.setImage(controller.LoadOpera.GetPage(page).PageImage);
 		if (method == 2)
 			Transcribe.setText(controller.LoadOpera.GetPage(page).WorkTrsc);
 		else
@@ -157,7 +157,7 @@ public class GuiViewer {
 	public void HandleForward () throws SQLException
 	{
 		controller.Forward();
-		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).GetImage());
+		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).PageImage);
 		Transcribe.setText(controller.LoadOpera.GetPage(controller.PageNum).Transcribe);
 		PageNumber.setText(controller.PageNum.toString());
 		if (controller.Method == 0)
@@ -170,7 +170,7 @@ public class GuiViewer {
 	public void HandleBackward () throws SQLException
 	{
 		controller.Backward();
-		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).GetImage());
+		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).PageImage);
 		Transcribe.setText(controller.LoadOpera.GetPage(controller.PageNum).Transcribe);
 		PageNumber.setText(controller.PageNum.toString());
 		if (controller.Method == 0)
@@ -183,7 +183,7 @@ public class GuiViewer {
 	public void HandleStart () throws SQLException
 	{
 		controller.Start();
-		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).GetImage());
+		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).PageImage);
 		Transcribe.setText(controller.LoadOpera.GetPage(controller.PageNum).Transcribe);
 		PageNumber.setText(controller.PageNum.toString());
 		if (controller.Method == 0)
@@ -196,7 +196,7 @@ public class GuiViewer {
 	public void HandleEnd () throws SQLException
 	{
 		controller.End();
-		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).GetImage());
+		Page.setImage(controller.LoadOpera.GetPage(controller.PageNum).PageImage);
 		Transcribe.setText(controller.LoadOpera.GetPage(controller.PageNum).Transcribe);
 		PageNumber.setText(controller.PageNum.toString());
 		if (controller.Method == 0)

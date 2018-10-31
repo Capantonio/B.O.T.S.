@@ -1,93 +1,105 @@
 package bots.Controller;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
 
+import bots.GUIController.GuiAdmin;
 import bots.Model.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 public class AdminClass {
-
-	public MainStart start;
 	
-	private LinkedList<UserModel> res = new LinkedList<UserModel>();
+	private LinkedList<UserModel> user = new LinkedList<UserModel>();
 	
-	private LinkedList<OperaModel> opres = new LinkedList<OperaModel>();
+	private LinkedList<OperaModel> opera = new LinkedList<OperaModel>();
 	
-	private LinkedList<PageModel> prev = new LinkedList<PageModel>();
+	private LinkedList<PageModel> pagerev = new LinkedList<PageModel>();
 	
-	private LinkedList<OperaModel> orev = new LinkedList<OperaModel>();
+	private LinkedList<OperaModel> operarev = new LinkedList<OperaModel>();
 	
-	public void setStart (MainStart startx)
+	public GuiAdmin GuiController;
+	
+	public void setStart (GuiAdmin x)
 	{
-		start = startx;
+		GuiController = x;
 	}
 	
-	@FXML
-	 public void ViewOpera(){
-	  start.changeStageSearch();  
-	 }
-	 
-	@FXML
-	 public void Logout() {
-	  start.changeStageLogin();
-	 }
-	
-	@FXML
-	public void handleSearch ()
+	public void UserSearch(String Name, String Surname, String Email, String Username, String Transcriber, String Admin, String Revisioner, String Download)
 	{
-		res.clear();
-		Container.getChildren().clear();
+		user.clear();
 		try {
-			res = start.mySql.UserQuery.SearchUser(Name.getText(), Surname.getText(), Email.getText(), Username.getText(), Transcriber.getText(), Admin.getText(), Revisioner.getText(), Download.getText(), Container, this);
+			user = MainStart.mySql.UserQuery.SearchUser(Name, Surname, Email, Username, Transcriber, Admin, Revisioner, Download);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Iterator <UserModel> it = user.iterator();
+		Integer count = 0;
+        while(it.hasNext()) {
+        	UserModel x = it.next();
+        	GuiController.ShowUserInfo(count, x);
+        	count++;
+        }
 	}
 	
-	@FXML
-	public void handleOperaSearch()
+	public void OperaSearch(String Title, String Author, String Data)
 	{
-		opres.clear();
-		OperaContainer.getChildren().clear();
-		try
-		{
-			opres = start.mySql.OperaQuery.SearchOpera(Title.getText(), Author.getText(), DataOpera.getText(), this, null, OperaContainer, 0);
+		opera.clear();
+		try {
+			opera = MainStart.mySql.OperaQuery.SearchOpera(Title, Author, Data);
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
+		Iterator <OperaModel> it = opera.iterator();
+		Integer count = 0;
+        while(it.hasNext()) {
+        	OperaModel x = it.next();
+        	try {
+				GuiController.Showopera(count, x);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	count++;
+        }
 	}
 	
-	@FXML
-	public void handleRevOpera()
+	public void OperaRevisioner()
 	{
-		orev.clear();
-		RevContainer.getChildren().clear();
+		operarev.clear();
 		try
 		{
-			orev = start.mySql.OperaQuery.SearchOpera("", "", "",this, null, RevContainer, 2);
+			operarev = MainStart.mySql.OperaQuery.GetOperaRev();
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
+		Iterator <OperaModel> it = opera.iterator();
+		Integer count = 0;
+        while(it.hasNext()) {
+        	OperaModel x = it.next();
+        	try {
+				GuiController.Showopera(count, x);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	count++;
+        }
 	}
 	
-	@FXML
-	public void handleRevTrsc()
+	public void TranscribeRevisioner()
 	{
-		prev.clear();
-		RevContainer.getChildren().clear();
-		try
-		{
-			prev = start.mySql.PageQuery.GetRevPage(this, RevContainer);
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-
+		pagerev.clear();
+		Iterator <PageModel> it = pagerev.iterator();
+		Integer count = 0;
+        while(it.hasNext()) {
+        	PageModel x = it.next();
+        	try {
+				GuiController.ShowRevPage(count, x, MainStart.mySql.OperaQuery.GetOpera(x.IdOpera));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	count++;
+        }
 	}
 }

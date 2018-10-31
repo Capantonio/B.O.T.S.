@@ -140,7 +140,7 @@ public class UserTable {
 		  return true;
 	}
 	
-	public LinkedList<UserModel> SearchUser (String xname, String xsurname, String xemail, String xusername, String xtrsc, String xadmin, String xrev, String xdl, AnchorPane cont, AdminClass obj) throws SQLException
+	public LinkedList<UserModel> SearchUser (String xname, String xsurname, String xemail, String xusername, String xtrsc, String xadmin, String xrev, String xdl) throws SQLException
 	{
 		String SqlQuery = SqlSearch;
 		if (xname.length() < 1)
@@ -218,7 +218,7 @@ public class UserTable {
 		while (x.next())
 		{
 			System.out.println(x.getString("Name"));
-			ResultList.add(new UserModel(x.getInt("idUser"),x.getString("Name"),x.getString("Surname"),x.getString("Email"),x.getString("Nickname"),x.getString("Transcriber"),x.getString("Admin"),x.getString("Revisioner"),x.getString("Download"),cont, obj, count));
+			ResultList.add(new UserModel(x.getInt("idUser"),x.getString("Name"),x.getString("Surname"),x.getString("Email"),x.getString("Nickname"),x.getString("Transcriber"),x.getString("Admin"),x.getString("Revisioner"),x.getString("Download")));
 			count++;
 		}
 		

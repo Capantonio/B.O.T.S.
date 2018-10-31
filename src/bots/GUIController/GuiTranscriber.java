@@ -1,5 +1,7 @@
 package bots.GUIController;
 
+import bots.Controller.TranscribeListClass;
+import bots.Model.UserModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,4 +22,11 @@ public class GuiTranscriber {
 	
 	@FXML
 	public AnchorPane Container;
+	
+	public TranscribeListClass controller;
+	
+	public void setStart (UserModel user)
+	{
+		
+	}
 }
