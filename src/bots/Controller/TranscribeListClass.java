@@ -1,9 +1,9 @@
-package bots.controller;
+package bots.Controller;
 
 import java.sql.SQLException;
 
-import bots.controller.model.PageModel;
-import bots.controller.model.UserModel;
+import bots.Model.PageModel;
+import bots.Model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,19 +17,7 @@ public class TranscribeListClass {
 	public MainStart start;
 	public UserModel user;
 	
-	@FXML
-	public TextField Title;
-	@FXML
-	public TextField Page;
-	@FXML
-	public Button[] Add = new Button[100];
-	
-	@FXML
-	public Label[] obj = new Label[100], obj2 = new Label[100];
 	public Integer[] idPage = new Integer[100];
-	
-	@FXML
-	public AnchorPane Container;
 	
 	public void setStart (MainStart startx, UserModel xuser)
 	{

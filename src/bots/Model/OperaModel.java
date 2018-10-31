@@ -1,9 +1,9 @@
-package bots.controller.model;
+package bots.Model;
 
 import java.sql.SQLException;
 
-import bots.controller.AdminClass;
-import bots.controller.SearchClass;
+import bots.Controller.AdminClass;
+import bots.Controller.SearchClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,8 +21,7 @@ public class OperaModel {
 	public PageModel[] Pages;
 	public Integer Lenght;
 	
-	public AnchorPane Container;
-	
+	/*
 	@FXML
 	public Label title;
 	@FXML
@@ -40,37 +39,16 @@ public class OperaModel {
 	@FXML
 	public Button view = new Button();
 	
-	public OperaModel (Integer id, String tit, String aut, String data, String show, AnchorPane cont, Integer x, AdminClass parent, Integer method) throws SQLException
+	*/
+	public OperaModel (Integer id, String tit, String aut, String data, String show, Integer page)
 	{
 		ID = id;
 		Title = tit;
 		Author = aut;
 		Data = data;
 		Show = show;
-		Container = cont;
-		Showa (x, parent, method);
-	}
-	
-	
-	public OperaModel (Integer id, String tit, String aut, String data, String show, AnchorPane cont, Integer x, SearchClass parent, Integer method) throws SQLException
-	{
-		ID = id;
-		Title = tit;
-		Author = aut;
-		Data = data;
-		Show = show;
-		Container = cont;
-		Shows (x, parent, method);
-	}
-	
-	public OperaModel (Integer id, String tit, String aut, String data, Integer xlenght) throws SQLException
-	{
-		ID = id;
-		Title = tit;
-		Author = aut;
-		Data = data;
-		Lenght = xlenght;
-		Pages = new PageModel[Lenght+1];
+		Lenght = page;
+		Pages = new PageModel[page];
 	}
 	
 	public PageModel GetPage (Integer num)
@@ -78,16 +56,7 @@ public class OperaModel {
 		return Pages[num];
 	}
 	
-	public Integer GetLenght ()
-	{
-		return Lenght;
-	}
-	
-	public String GetTitle ()
-	{
-		return Title;
-	}
-	
+	/*
 	public void Showa (Integer x, AdminClass parent, Integer method) throws SQLException
 	{
 		SetShow (title, 0, x * 30, 70, Title);
@@ -155,4 +124,6 @@ public class OperaModel {
 		obj.setPrefWidth(width);
 		Container.getChildren().add(obj);
 	}
+	
+	*/
 }

@@ -1,8 +1,8 @@
-package bots.controller;
+package bots.Controller;
 
 import java.sql.SQLException;
 
-import bots.controller.model.UserModel;
+import bots.Model.UserModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -11,16 +11,6 @@ public class PopupUserClass {
 	public MainStart start;
 	
 	public UserModel user;
-	
-	@FXML
-	TextField TName,
-			TSurname,
-			TUsername,
-			TEmail,
-			TTranscriber,
-			TAdmin,
-			TRev,
-			TDownload;
 	
 	public void setStart (MainStart startx, UserModel xuser)
 	{

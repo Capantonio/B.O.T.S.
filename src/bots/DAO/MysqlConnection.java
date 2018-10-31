@@ -1,4 +1,4 @@
-package bots.controller.DAO;
+package bots.DAO;
 
 import java.sql.*;
 

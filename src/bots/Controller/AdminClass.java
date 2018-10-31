@@ -1,10 +1,9 @@
-package bots.controller;
-
-import bots.controller.model.*;
+package bots.Controller;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import bots.Model.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -12,40 +11,6 @@ import javafx.scene.layout.AnchorPane;
 public class AdminClass {
 
 	public MainStart start;
-	
-	@FXML
-	private TextField Name;
-	@FXML
-	private TextField Surname;
-	@FXML
-	private TextField Username;
-	@FXML
-	private TextField Email;
-	@FXML
-	private TextField Admin;
-	@FXML
-	private TextField Transcriber;
-	@FXML
-	private TextField Revisioner;
-	@FXML
-	private TextField Download;
-	
-	@FXML
-	private AnchorPane Container;
-	
-	@FXML
-	private TextField Title;
-	@FXML
-	private TextField Author;
-	@FXML
-	private TextField DataOpera;
-	
-	@FXML
-	private AnchorPane OperaContainer;
-	
-	@FXML
-	private AnchorPane RevContainer;
-	
 	
 	private LinkedList<UserModel> res = new LinkedList<UserModel>();
 	

@@ -1,6 +1,6 @@
-package bots.controller.model;
+package bots.Model;
 
-import bots.controller.AdminClass;
+import bots.Controller.AdminClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

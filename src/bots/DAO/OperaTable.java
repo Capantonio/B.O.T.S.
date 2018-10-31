@@ -1,4 +1,4 @@
-package bots.controller.DAO;
+package bots.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import bots.controller.AdminClass;
-import bots.controller.SearchClass;
-import bots.controller.model.OperaModel;
+import bots.Controller.AdminClass;
+import bots.Controller.SearchClass;
+import bots.Model.OperaModel;
 import javafx.scene.layout.*;
 
 
@@ -33,7 +33,7 @@ public class OperaTable {
 		DelOpera.executeUpdate();
 	}
 	
-	public LinkedList<OperaModel> SearchOpera (String xtitle, String xauthor, String xyear, AdminClass ca, SearchClass cs, AnchorPane cont, Integer method ) throws SQLException
+	public LinkedList<OperaModel> SearchOpera (String xtitle, String xauthor, String xyear) throws SQLException
 	{
 		String SqlQuery = SqlSearch;
 		if (xtitle.equals(""))
@@ -68,36 +68,13 @@ public class OperaTable {
 		int count = 0;
 		while (x.next())
 		{
-			if (method == 2)
+			if (x.getString("ShowOpera").equals("1"))
 			{
-				if (x.getString("ShowOpera").equals("2"))
-				{
-					System.out.println(x.getString("Title"));
-					ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), cont, count, ca, method));
-					count++;
-				}
+				System.out.println(x.getString("Title"));
+				ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), x.getInt("Page")));
+				count++;
 			}
-			else if (method == 1)
-			{
-				if (x.getString("ShowOpera").equals("1"))
-				{
-					System.out.println(x.getString("Title"));
-					ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), cont, count, cs, method));
-					count++;
-				}
-			}
-			else
-			{
-				if (x.getString("ShowOpera").equals("0") || x.getString("ShowOpera").equals("1"))
-				{
-					System.out.println(x.getString("Title"));
-					ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), cont, count, ca, method));
-					count++;
-				}
-			}
-			
 		}
-		cont.setPrefHeight(count*30);
 		return ResultList;
 	}
 	
@@ -129,7 +106,7 @@ public class OperaTable {
 		OperaModel res = null;
 		while (x.next())
 		{
-			res = new OperaModel(x.getInt("idOpera"), x.getString("Title"), x.getString("Author"), x.getString("DataOpera"), x.getInt("Page"));
+			res = new OperaModel(x.getInt("idOpera"), x.getString("Title"), x.getString("Author"), x.getString("DataOpera"),x.getString("Showopera"), x.getInt("Page"));
 		}
 		return res;
 	}

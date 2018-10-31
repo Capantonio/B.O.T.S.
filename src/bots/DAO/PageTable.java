@@ -1,4 +1,4 @@
-package bots.controller.DAO;
+package bots.DAO;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -9,9 +9,8 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
-
-import bots.controller.AdminClass;
-import bots.controller.model.PageModel;
+import bots.Controller.AdminClass;
+import bots.Model.PageModel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;

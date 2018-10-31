@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="392.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.RegisterClass">
+<AnchorPane prefHeight="392.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.GUIController.GuiRegister">
    <children>
       <Label layoutX="68.0" layoutY="29.0" text="WELCOME NEW USER">
          <font>

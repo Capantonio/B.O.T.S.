@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="578.0" prefWidth="885.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.controller.AdminClass">
+<AnchorPane prefHeight="578.0" prefWidth="885.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bots.GUIController.GuiAdmin">
    <children>
       <TabPane layoutX="58.0" layoutY="30.0" prefHeight="490.0" prefWidth="885.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>

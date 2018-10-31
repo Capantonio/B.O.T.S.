@@ -1,8 +1,8 @@
-package bots.controller.DAO;
+package bots.DAO;
 
-import bots.controller.AdminClass;
-import bots.controller.TranscribeListClass;
-import bots.controller.model.UserModel;
+import bots.Controller.AdminClass;
+import bots.Controller.TranscribeListClass;
+import bots.Model.UserModel;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.*;
