@@ -74,7 +74,7 @@ public class AdminClass {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		Iterator <OperaModel> it = opera.iterator();
+		Iterator <OperaModel> it = operarev.iterator();
 		Integer count = 0;
         while(it.hasNext()) {
         	OperaModel x = it.next();

@@ -103,17 +103,17 @@ public class GuiAdmin {
 	public void ShowUserInfo (Integer x, UserModel user)
 	{
 		String appo;
-		SetShow (new Label(), 0, x * 30, 70, user.Name);
-		SetShow (new Label(), 70, x * 30, 70, user.Surname);
-		SetShow (new Label(), 140, x * 30, 120, user.Email);
-		SetShow (new Label(), 280, x * 30, 70, user.Username);
-		SetShow (new Label(), 350, x * 30, 30, user.Transcriber);
+		SetShowUser (new Label(), 0, x * 30, 70, user.Name);
+		SetShowUser (new Label(), 70, x * 30, 70, user.Surname);
+		SetShowUser (new Label(), 140, x * 30, 120, user.Email);
+		SetShowUser (new Label(), 280, x * 30, 70, user.Username);
+		SetShowUser (new Label(), 350, x * 30, 30, user.Transcriber);
 		appo = user.Admin.equals("1") ? "YES" : "NO";
-		SetShow (new Label(), 380, x * 30, 30, appo);
+		SetShowUser (new Label(), 380, x * 30, 30, appo);
 		appo = user.Download.equals("1") ? "YES" : "NO";
-		SetShow (new Label(), 410, x * 30, 30, appo);
+		SetShowUser (new Label(), 410, x * 30, 30, appo);
 		appo = user.Revisioner.equals("1") ? "YES" : "NO";
-		SetShow (new Label(), 440, x * 30, 30, appo);
+		SetShowUser (new Label(), 440, x * 30, 30, appo);
 		
 		Button Mod = new Button();
 		Mod.setOnAction(new EventHandler<ActionEvent>() {
@@ -144,16 +144,21 @@ public class GuiAdmin {
 	
 	public void Showopera (Integer x, OperaModel opera) throws SQLException
 	{
-		SetShow (new Label(), 0, x * 30, 70, opera.Title);
-		SetShow (new Label(), 70, x * 30, 70, opera.Author);
-		SetShow (new Label(), 140, x * 30, 40, opera.Data);
-		SetShow (new Label(), 180, x * 30, 70, opera.Show);
+		
 		if (opera.Show.equals("2"))
 		{
+			SetShowRev (new Label(), 0, x * 30, 70, opera.Title);
+			SetShowRev (new Label(), 70, x * 30, 70, opera.Author);
+			SetShowRev (new Label(), 140, x * 30, 40, opera.Data);
+			SetShowRev (new Label(), 180, x * 30, 70, opera.Show);
 			ShowButtonView(new Button(), opera, 210,x*30,70,"View");
 		}
 		else
 		{
+			SetShowOpera (new Label(), 0, x * 30, 70, opera.Title);
+			SetShowOpera (new Label(), 70, x * 30, 70, opera.Author);
+			SetShowOpera (new Label(), 140, x * 30, 40, opera.Data);
+			SetShowOpera (new Label(), 180, x * 30, 70, opera.Show);
 			ShowButtonHide(new Button(), opera, 210,x * 30,70,"Show/Hide");
 		}
 		
@@ -161,8 +166,8 @@ public class GuiAdmin {
 	
 	public void ShowRevPage (Integer x, PageModel page, OperaModel opera)
 	{
-		SetShow (new Label(), 0, x * 30, 100, opera.Title);
-		SetShow (new Label(), 100, x * 30, 30, page.PageNumber.toString());
+		SetShowRev (new Label(), 0, x * 30, 100, opera.Title);
+		SetShowRev (new Label(), 100, x * 30, 30, page.PageNumber.toString());
 		ShowPageRevButton (new Button(), 130, x * 30, 100, "Revision", opera, page.PageNumber);
 	}
 	
@@ -171,7 +176,7 @@ public class GuiAdmin {
 		obj.setLayoutX(x);
 		obj.setLayoutY(y);
 		obj.setPrefWidth(width);
-		Container.getChildren().add(obj);
+		OperaContainer.getChildren().add(obj);
 		obj.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e)
 	    	{
@@ -190,7 +195,7 @@ public class GuiAdmin {
 		obj.setLayoutX(x);
 		obj.setLayoutY(y);
 		obj.setPrefWidth(width);
-		Container.getChildren().add(obj);
+		RevContainer.getChildren().add(obj);
 		obj.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e)
 	    	{
@@ -205,7 +210,7 @@ public class GuiAdmin {
 		obj.setLayoutX(x);
 		obj.setLayoutY(y);
 		obj.setPrefWidth(width);
-		Container.getChildren().add(obj);
+		RevContainer.getChildren().add(obj);
 		obj.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e)
 	    	{
@@ -214,7 +219,7 @@ public class GuiAdmin {
 		});
 	}
 
-	public void SetShow (Label obj, Integer x, Integer y, Integer width, String text)
+	public void SetShowUser (Label obj, Integer x, Integer y, Integer width, String text)
 	{
 		obj = new Label();
 		obj.setText(text);
@@ -222,5 +227,25 @@ public class GuiAdmin {
 		obj.setLayoutY(y);
 		obj.setPrefWidth(width);
 		Container.getChildren().add(obj);
+	}
+	
+	public void SetShowOpera (Label obj, Integer x, Integer y, Integer width, String text)
+	{
+		obj = new Label();
+		obj.setText(text);
+		obj.setLayoutX(x);
+		obj.setLayoutY(y);
+		obj.setPrefWidth(width);
+		OperaContainer.getChildren().add(obj);
+	}
+	
+	public void SetShowRev (Label obj, Integer x, Integer y, Integer width, String text)
+	{
+		obj = new Label();
+		obj.setText(text);
+		obj.setLayoutX(x);
+		obj.setLayoutY(y);
+		obj.setPrefWidth(width);
+		RevContainer.getChildren().add(obj);
 	}
 }

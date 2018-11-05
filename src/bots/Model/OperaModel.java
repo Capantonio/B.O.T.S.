@@ -29,7 +29,7 @@ public class OperaModel {
 		Data = data;
 		Show = show;
 		Lenght = page;
-		Pages = new PageModel[page];
+		Pages = new PageModel[page+1];
 	}
 	
 	public PageModel GetPage (Integer num)

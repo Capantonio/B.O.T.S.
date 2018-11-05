@@ -21,6 +21,7 @@ public class MainStart extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
+		primaryStage.setResizable(false);
 		mySql = new MysqlConnection();
 		GUI = new StageController(primaryStage);
 	}

@@ -131,7 +131,7 @@ public class OperaTable {
 	
 	public LinkedList <OperaModel> GetOperaRev () throws SQLException
 	{
-		String SqlQuery = "SELECT *FROM db.opera WHERE ShowOpera = 2";
+		String SqlQuery = "SELECT *FROM mydb.opera WHERE ShowOpera = 2";
 		PreparedStatement SearchOperaQuery = db.prepareStatement(SqlQuery);
 		ResultSet x = SearchOperaQuery.executeQuery();
 		LinkedList<OperaModel> ResultList = new LinkedList<OperaModel>();

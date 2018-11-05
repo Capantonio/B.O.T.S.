@@ -29,6 +29,8 @@ public class ViewerClass {
 	{
 		LoadOpera = opload;
 		Method = method;
+		PageNum = page;
+		LoadOpera.Pages[PageNum] = ChangePage(PageNum);
 	}
 	
 	public void AcceptOperaRevision()
@@ -67,7 +69,7 @@ public class ViewerClass {
 	public PageModel ChangePage(Integer num)
 	{
 		PageModel ret=null;
-		LoadOpera.Pages[num] = MainStart.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, num);
+		ret = MainStart.mySql.PageQuery.GetPageFromOpera(LoadOpera.ID, num);
 		return ret;
 	}
 	
