@@ -1,6 +1,7 @@
 package bots.Controller;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import bots.Model.PageModel;
 import bots.Model.UserModel;
@@ -19,57 +20,26 @@ public class TranscribeListClass {
 	
 	public Integer[] idPage = new Integer[100];
 	
-	public void setStart (MainStart startx, UserModel xuser)
+	public void setStart (UserModel xuser)
 	{
-		start = startx;
 		user = xuser;
+	}
+	
+	public LinkedList<String[]> Refresh()
+	{
 		try {
-			start.mySql.UserQuery.LoadTrasncribeList(xuser.ID, this);
+			return MainStart.mySql.UserQuery.LoadTrasncribeList(user.ID);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
-	@FXML
-	public void handleAdd() throws SQLException
+	public void Add(String Title, String Page) throws SQLException
 	{
-		PageModel x = start.mySql.PageQuery.GetPageFromOpera(start.mySql.OperaQuery.GetIdOpera(Title.getText()), Integer.parseInt(Page.getText()));
+		PageModel x = MainStart.mySql.PageQuery.GetPageFromOpera(start.mySql.OperaQuery.GetIdOpera(Title), Integer.parseInt(Page));
 		if (!(x.equals(null)))
-			start.mySql.UserQuery.AddTrscList(user.ID, x.PageID);
-	}
-	
-	public void ShowPermission (Integer page, String title, Integer x, Integer id)
-	{
-		idPage[x] = id;
-		obj[x] = new Label();
-		obj[x].setText(page.toString());
-		obj[x].setLayoutX(180);
-		obj[x].setLayoutY(30*x);
-		obj[x].setPrefWidth(30);
-		Container.getChildren().add(obj[x]);
-		obj2[x] = new Label();
-		obj2[x].setText(title);
-		obj2[x].setLayoutX(0);
-		obj2[x].setLayoutY(30*x);
-		obj2[x].setPrefWidth(170);
-		Container.getChildren().add(obj2[x]);
-		Add[x] = new Button();
-		Add[x].setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e)
-		    {
-		    	try {
-					start.mySql.UserQuery.RemoveTrscList(user.ID, idPage[x]);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		    }
-		});
-		Add[x].setText("Remove");
-		Add[x].setMinWidth(40);
-		Add[x].setLayoutX(210);
-		Add[x].setLayoutY(x*30);
-		Container.getChildren().add(Add[x]);
+			MainStart.mySql.UserQuery.AddTrscList(user.ID, x.PageID);
 	}
 }

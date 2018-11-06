@@ -2,6 +2,7 @@ package bots.DAO;
 
 import bots.Controller.AdminClass;
 import bots.Controller.TranscribeListClass;
+import bots.Model.NotificationModel;
 import bots.Model.UserModel;
 import javafx.scene.layout.AnchorPane;
 
@@ -48,17 +49,22 @@ public class UserTable {
 		RemoveQuery.executeUpdate();
 	}
 	
-	public void LoadTrasncribeList (Integer id, TranscribeListClass obj) throws SQLException
+	public LinkedList<String[]> LoadTrasncribeList (Integer id) throws SQLException
 	{
+		LinkedList<String[]> ret = new LinkedList<String[]>();
 		PreparedStatement ListTrsc = db.prepareStatement(SqlTranscribe);
 		ListTrsc.setInt(1, id);
 		ResultSet x = ListTrsc.executeQuery();
 		Integer count = 0;
 		while (x.next())
 		{
-			count++;
-			obj.ShowPermission(x.getInt("Number"), x.getString("Title"), count, x.getInt("idPage"));
+			String [] appo = new String[3];
+			appo[0] = x.getString("Number");
+			appo[1] = x.getString("Title");
+			appo[2] = x.getString("idPage");
+			ret.add(appo);
 		}
+		return ret;
 	}
 	
 	public void ChangeUser (UserModel x) throws SQLException
@@ -214,14 +220,19 @@ public class UserTable {
 		System.out.println(SearchOperaQuery.toString());
 		ResultSet x = SearchOperaQuery.executeQuery();
 		LinkedList<UserModel> ResultList = new LinkedList<UserModel>();
-		int count = 0;
 		while (x.next())
 		{
 			System.out.println(x.getString("Name"));
 			ResultList.add(new UserModel(x.getInt("idUser"),x.getString("Name"),x.getString("Surname"),x.getString("Email"),x.getString("Nickname"),x.getString("Transcriber"),x.getString("Admin"),x.getString("Revisioner"),x.getString("Download")));
-			count++;
 		}
 		
 		return ResultList;
+	}
+	
+	public LinkedList<NotificationModel> GetNotification (UserModel x)
+	{
+		LinkedList<NotificationModel> ret = new LinkedList<NotificationModel>();
+		
+		return ret;
 	}
 }
