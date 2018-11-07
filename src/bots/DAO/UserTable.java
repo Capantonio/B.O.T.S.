@@ -55,7 +55,6 @@ public class UserTable {
 		PreparedStatement ListTrsc = db.prepareStatement(SqlTranscribe);
 		ListTrsc.setInt(1, id);
 		ResultSet x = ListTrsc.executeQuery();
-		Integer count = 0;
 		while (x.next())
 		{
 			String [] appo = new String[3];
@@ -122,7 +121,6 @@ public class UserTable {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		while (x.next())
@@ -229,10 +227,17 @@ public class UserTable {
 		return ResultList;
 	}
 	
-	public LinkedList<NotificationModel> GetNotification (UserModel x)
+	public LinkedList<NotificationModel> GetNotification (UserModel user) throws SQLException
 	{
 		LinkedList<NotificationModel> ret = new LinkedList<NotificationModel>();
-		
+		ResultSet x = null;
+		PreparedStatement FindUserQuery = db.prepareStatement("SELECT * FROM mydb.notification WHERE UserID = ?");
+		FindUserQuery.setInt(1, user.ID);
+		x = FindUserQuery.executeQuery();
+		while (x.next())
+		{
+			ret.add(new NotificationModel(x.getInt("ID"),x.getString("Message"),x.getDate("Data")));
+		}
 		return ret;
 	}
 }

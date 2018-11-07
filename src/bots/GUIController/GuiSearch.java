@@ -72,6 +72,12 @@ public class GuiSearch {
 	}
 	
 	@FXML
+	public void handleMessage()
+	{
+		
+	}
+	
+	@FXML
 	public void handleAdmin()
 	{
 		MainStart.GUI.changeStageAdmin();

@@ -92,6 +92,30 @@ public class StageController {
         }
     }
 	
+	public void PopupMessage ()
+	{
+		try {
+        	secondaryStage = new Stage();
+        	secondaryStage.centerOnScreen();
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/bots/View/MessageView.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(personOverview);
+            secondaryStage.setScene(scene);
+            secondaryStage.sizeToScene();
+            secondaryStage.show();
+            
+            GuiMessage controller = loader.getController();
+            controller.setStart();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
 	public void PopupTrsc(UserModel user) {
         try {
         	secondaryStage = new Stage();

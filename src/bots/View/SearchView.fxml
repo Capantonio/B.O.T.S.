@@ -18,6 +18,7 @@
         </content>
       </ScrollPane>
       <Button fx:id="Admin" layoutX="167.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAdmin" prefHeight="31.0" prefWidth="110.0" text="ADMIN PANEL" />
-      <Button layoutX="655.0" layoutY="17.0" mnemonicParsing="false" onAction="#Logout" prefHeight="25.0" prefWidth="110.0" text="LOGOUT" />
+      <Button layoutX="655.0" layoutY="17.0" mnemonicParsing="false" onAction="#Logout" prefHeight="31.0" prefWidth="110.0" text="LOGOUT" />
+      <Button layoutX="558.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleMessage" prefHeight="31.0" prefWidth="78.0" text="Message" />
    </children>
 </AnchorPane>

@@ -1,15 +1,17 @@
 package bots.Model;
 
+import java.sql.Date;
+
 public class NotificationModel {
 
 	public Integer ID;
 	public String Text;
-	public String Data;
+	public Date Data;
 	
-	public NotificationModel(Integer id, String text, String data)
+	public NotificationModel(Integer id, String text, Date date)
 	{
 		ID = id;
 		Text = text;
-		Data = data;
+		Data = date;
 	}
 }
