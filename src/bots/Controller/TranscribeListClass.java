@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class TranscribeListClass {
 
-	public MainStart start;
 	public UserModel user;
 	
 	public Integer[] idPage = new Integer[100];
@@ -38,7 +37,7 @@ public class TranscribeListClass {
 	
 	public void Add(String Title, String Page) throws SQLException
 	{
-		PageModel x = MainStart.mySql.PageQuery.GetPageFromOpera(start.mySql.OperaQuery.GetIdOpera(Title), Integer.parseInt(Page));
+		PageModel x = MainStart.mySql.PageQuery.GetPageFromOpera(MainStart.mySql.OperaQuery.GetIdOpera(Title), Integer.parseInt(Page));
 		if (!(x.equals(null)))
 			MainStart.mySql.UserQuery.AddTrscList(user.ID, x.PageID);
 	}

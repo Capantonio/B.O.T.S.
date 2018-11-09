@@ -10,15 +10,15 @@
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoad" prefHeight="31.0" prefWidth="138.0" text="Load New Opera" />
       <TextField fx:id="Search" layoutX="21.0" layoutY="71.0" prefHeight="25.0" prefWidth="363.0" promptText="TITLE" />
       <TextField fx:id="AutSearch" layoutX="398.0" layoutY="71.0" promptText="AUTHOR" />
-      <TextField fx:id="YearSearch" layoutX="560.0" layoutY="71.0" prefHeight="25.0" prefWidth="78.0" promptText="DATA" />
-      <Button layoutX="655.0" layoutY="71.0" mnemonicParsing="false" onAction="#HandleSearch" prefHeight="25.0" prefWidth="110.0" text="Search" />
+      <TextField fx:id="YearSearch" layoutX="560.0" layoutY="71.0" prefHeight="25.0" prefWidth="94.0" promptText="DATA" />
+      <Button layoutX="668.0" layoutY="71.0" mnemonicParsing="false" onAction="#HandleSearch" prefHeight="25.0" prefWidth="110.0" text="Search" />
       <ScrollPane fx:id="Scrollp" layoutX="21.0" layoutY="118.0" prefHeight="469.0" prefWidth="757.0">
         <content>
           <AnchorPane fx:id="Container" minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="755.0" />
         </content>
       </ScrollPane>
       <Button fx:id="Admin" layoutX="167.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAdmin" prefHeight="31.0" prefWidth="110.0" text="ADMIN PANEL" />
-      <Button layoutX="655.0" layoutY="17.0" mnemonicParsing="false" onAction="#Logout" prefHeight="31.0" prefWidth="110.0" text="LOGOUT" />
-      <Button layoutX="558.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleMessage" prefHeight="31.0" prefWidth="78.0" text="Message" />
+      <Button layoutX="668.0" layoutY="17.0" mnemonicParsing="false" onAction="#Logout" prefHeight="31.0" prefWidth="110.0" text="LOGOUT" />
+      <Button layoutX="558.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleMessage" prefHeight="31.0" prefWidth="94.0" text="Message" />
    </children>
 </AnchorPane>

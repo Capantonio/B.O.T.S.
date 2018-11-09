@@ -3,6 +3,9 @@ package bots.GUIController;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import bots.Controller.AdminClass;
 import bots.Controller.LoginClass;
 import bots.Controller.PopupUserClass;
@@ -28,6 +31,21 @@ public class StageController {
 		primaryStage.setTitle("B.O.T.S.  Book On The Shelf");
 		
 		changeStageLogin();
+	}
+	
+	public JFileChooser PopupLoader ()
+	{
+		JFileChooser chooser = new JFileChooser();
+		chooser.setMultiSelectionEnabled(true);
+		chooser .addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg", "png"));
+		int result = chooser.showOpenDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			return chooser;
+		} else if (result == JFileChooser.CANCEL_OPTION) {
+		    System.out.println("Cancel was selected");
+		    return null;
+		}
+		return null;
 	}
 	
 	public void changeStageLogin() {

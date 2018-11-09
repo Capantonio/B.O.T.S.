@@ -9,8 +9,6 @@ import javafx.scene.control.TextField;
 
 public class GuiRegister {
 
-	@FXML
-	 private MainStart start;
 	 @FXML
 	 private TextField nametext;
 	 @FXML
@@ -44,6 +42,8 @@ public class GuiRegister {
 		 String Surname = surnametext.getText();
 		 String Email = emailtext.getText();
 		 
-		 MainStart.GUI.changeStageSearch();
+		 controller.Register(Username, Email, Name, Password, Surname);
+		 
+		 MainStart.GUI.changeStageLogin();
 	 }
 }

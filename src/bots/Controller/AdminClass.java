@@ -48,7 +48,7 @@ public class AdminClass {
 	{
 		opera.clear();
 		try {
-			opera = MainStart.mySql.OperaQuery.SearchOpera(Title, Author, Data);
+			opera = MainStart.mySql.OperaQuery.SearchManagerOpera(Title, Author, Data);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -90,6 +90,11 @@ public class AdminClass {
 	public void TranscribeRevisioner()
 	{
 		pagerev.clear();
+		try {
+			pagerev = MainStart.mySql.PageQuery.GetRevPage();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		Iterator <PageModel> it = pagerev.iterator();
 		Integer count = 0;
         while(it.hasNext()) {

@@ -78,6 +78,7 @@ public class PageTable {
             catch (Exception e)
             {
                     e.printStackTrace();
+                    // TODO Annulla il caricamento e cancella l'opera
             }
     }
 	
@@ -153,9 +154,8 @@ public class PageTable {
 	public void SetWork(Integer user, String work, Integer id) throws SQLException
 	{
 		PreparedStatement pstmt;
-        pstmt = db.prepareStatement("Update mydb.page Set WorkTrsc = ?, LastUser = ?, LockOpera = 0 Where idPage = ?");
-        pstmt.setInt(3, id);
-        pstmt.setInt(2, user);
+        pstmt = db.prepareStatement("Update mydb.page Set WorkTrsc = ?, LockOpera = 0 Where idPage = ?");
+        pstmt.setInt(2, id);
         pstmt.setString(1, work);
         pstmt.executeUpdate();
 	}

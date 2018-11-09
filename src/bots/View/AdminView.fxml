@@ -13,7 +13,7 @@
    <children>
       <TabPane layoutX="58.0" layoutY="30.0" prefHeight="490.0" prefWidth="885.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Users Management">
+          <Tab fx:id="UserManager" text="Users Management">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="885.0">
                      <children>
@@ -74,7 +74,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Library Management">
+          <Tab fx:id="OperaManager" text="Library Management">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -105,7 +105,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Revision List">
+          <Tab fx:id="RevManager" text="Revision List">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

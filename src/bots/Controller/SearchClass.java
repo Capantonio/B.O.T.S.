@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import bots.Controller.MainStart;
@@ -30,31 +32,18 @@ public class SearchClass {
 		return res;
 	}
 	
-	public void Load () throws SQLException
+	public void Load (String title, String author, String data, File[] files) throws SQLException
 	{
-		/*
-		 String Title="", Author="", Page="", Path="", Data="";
-		 while (Title.equals(""))
-			 Title = JOptionPane.showInputDialog("Enter the title:");
-		 while (Author.equals(""))
-			 Author = JOptionPane.showInputDialog("Enter the author:");
-		 while (Page.equals(""))
-			 Page = JOptionPane.showInputDialog("Enter the number of page:");
-		 while (Data.equals(""))
-			 Data = JOptionPane.showInputDialog("Enter the data");
-		 while (Path.equals(""))
-			 Path = JOptionPane.showInputDialog("Enter the path of images:");
-	    
-		 Integer x = Integer.parseInt(Page);
-		 MainStart.mySql.OperaQuery.LoadOpera(Title, Author, x, Data);
-		 Integer y = MainStart.mySql.OperaQuery.GetIdOpera(Title);
-	    
+		 MainStart.mySql.OperaQuery.LoadOpera(title, author, files.length, data, MainStart.ConnectedUser.ID);
+		 
 		 //create opera
-		 for (int i = 1; i < x+1; i++)
+		 Integer y = MainStart.mySql.OperaQuery.GetIdOpera(title);
+	    
+		 //Insert pages
+		 for (int i = 1; i < files.length+1; i++)
 		 {
-			 MainStart.mySql.PageQuery.LoadImage(y, Path + "\\" + Title +  "_" + i + ".JPG" , i);
+			 MainStart.mySql.PageQuery.LoadImage(y, files[i-1].getPath(), i);
 		 }
-		 */
 	}
 	
 }

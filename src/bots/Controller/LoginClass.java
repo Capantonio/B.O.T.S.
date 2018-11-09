@@ -34,13 +34,9 @@ public class LoginClass {
 	
 	
 	@FXML
-	private void handleNewUser()
+	private void NewUser()
 	{
-		/*
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
-		fileChooser.showOpenDialog(start.getPrimaryStage());
-		*/
+		MainStart.GUI.changeStageRegister();
 	}
 	
 }

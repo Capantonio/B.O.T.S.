@@ -35,6 +35,13 @@ public class UserTable {
 		db = xcon;
 	}
 	
+	public void RemoveUserTranscription(Integer page) throws SQLException
+	{
+		PreparedStatement RemoveQuery = db.prepareStatement("DELETE FROM mydb.transcription WHERE PageID=?");
+		RemoveQuery.setInt(1, page);
+		RemoveQuery.executeUpdate();
+		}
+	
 	public void CheckIdTranscription (Integer page) throws SQLException
 	{
 		PreparedStatement ListQuery = db.prepareStatement("SELECT * FROM mydb.transcription WHERE PageID = ? AND UserID = ?");
@@ -45,10 +52,11 @@ public class UserTable {
 		{
 			return;
 		}
-		PreparedStatement AddListQuery = db.prepareStatement("INSERT INTO mydb.transcription VALUE (?,?)");
+		System.out.println("add key in transcription table");
+		PreparedStatement AddListQuery = db.prepareStatement("INSERT INTO mydb.transcription (PageID, UserID) VALUE (?,?)");
 		AddListQuery.setInt(1, page);
 		AddListQuery.setInt(2, MainStart.ConnectedUser.ID);
-		ListQuery.executeQuery();
+		AddListQuery.executeUpdate();
 	}
 	
 	public void SendNotificationPage (String text, Integer page) throws SQLException
@@ -60,7 +68,7 @@ public class UserTable {
 		ResultSet res = GetListQuery.executeQuery();
 		while (res.next())
 		{
-			PreparedStatement NotifyQuery = db.prepareStatement("INSERT INTO mydb.notification ('UserID','Message','Data')  VALUE (?,?,?)");
+			PreparedStatement NotifyQuery = db.prepareStatement("INSERT INTO mydb.notification (UserID,Message,Data)  VALUE (?,?,?)");
 			NotifyQuery.setInt(1, res.getInt("UserID"));
 			NotifyQuery.setString(2, text);
 			NotifyQuery.setString(3, now);
@@ -73,7 +81,7 @@ public class UserTable {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		String now = LocalDate.now().toString();
 		Integer user = MainStart.mySql.OperaQuery.GetLoader(opera);
-		PreparedStatement NotifyQuery = db.prepareStatement("INSERT INTO mydb.notification ('UserID','Message','Data')  VALUE (?,?,?)");
+		PreparedStatement NotifyQuery = db.prepareStatement("INSERT INTO mydb.notification (UserID,Message,Data)  VALUE (?,?,?)");
 		NotifyQuery.setInt(1, user);
 		NotifyQuery.setString(2, text);
 		NotifyQuery.setString(3, now);
@@ -283,6 +291,7 @@ public class UserTable {
 		x = FindUserQuery.executeQuery();
 		while (x.next())
 		{
+			System.out.println(x.getString("Message"));
 			ret.add(new NotificationModel(x.getInt("ID"),x.getString("Message"),x.getDate("Data")));
 		}
 		return ret;

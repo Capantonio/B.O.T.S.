@@ -40,6 +40,7 @@ public class OperaTable {
 		ResultSet res = LoaderQuery.executeQuery();
 		while(res.next())
 		{
+			System.out.println(res.getInt("UserID"));
 			return res.getInt("UserID");
 		}
 		return (Integer) null;
@@ -88,19 +89,63 @@ public class OperaTable {
 		return ResultList;
 	}
 	
-	public void LoadOpera(String Title, String Author, Integer Page, String Data)
+	public LinkedList<OperaModel> SearchManagerOpera (String xtitle, String xauthor, String xyear) throws SQLException
+	{
+		String SqlQuery = SqlSearch;
+		if (xtitle.equals(""))
+			SqlQuery = SqlQuery + "!(" + SqlTitle + ")";
+		else
+			SqlQuery = SqlQuery + SqlTitle;
+		if (xauthor.equals(""))
+			SqlQuery = SqlQuery + " AND !(" + SqlAuthor + ")";
+		else
+			SqlQuery = SqlQuery + " AND " + SqlAuthor;
+		if (xyear.equals(""))
+			SqlQuery = SqlQuery + " AND !(" + SqlYear + ")";
+		else
+			SqlQuery = SqlQuery + " AND " + SqlYear;
+		
+		PreparedStatement SearchOperaQuery = db.prepareStatement(SqlQuery);
+		
+		SearchOperaQuery.setString(1, xtitle);
+		
+		SearchOperaQuery.setString(2, xauthor);
+		
+		if (xyear.equals(""))
+			SearchOperaQuery.setString(3, "");
+		else
+			SearchOperaQuery.setInt(3, Integer.parseInt (xyear));
+		
+		System.out.println(SearchOperaQuery.toString());
+		ResultSet x = SearchOperaQuery.executeQuery();
+		LinkedList<OperaModel> ResultList = new LinkedList<OperaModel>();
+		System.out.println("Get Result");
+		//For each element on result
+		while (x.next())
+		{
+			if (x.getString("ShowOpera").equals("1") || x.getString("ShowOpera").equals("0"))
+			{
+				System.out.println(x.getString("Title"));
+				ResultList.add(new OperaModel(x.getInt("idOpera"), x.getString("Title"),x.getString("Author"),x.getString("DataOpera"),x.getString("Showopera"), x.getInt("Page")));
+			}
+		}
+		return ResultList;
+	}
+	
+	public void LoadOpera(String Title, String Author, Integer Page, String Data, Integer User)
 	  {
 	    String query;
 	    PreparedStatement pstmt;
 	        
 	    try 
 	    {
-	      query = ("insert Into mydb.opera (Title, Author, DataOpera, Page, ShowOpera) VALUES (?,?,?,?,'2')");
+	      query = ("insert Into mydb.opera (Title, Author, DataOpera, Page, ShowOpera, UserID) VALUES (?,?,?,?,'2',?)");
 	      pstmt = db.prepareStatement(query);
 	      pstmt.setString(1, Title);
 	      pstmt.setString(2, Author);
 	      pstmt.setString(3, Data);
 	      pstmt.setInt(4, Page);  
+	      pstmt.setInt(5, User);
 	      pstmt.executeUpdate();
 	    }
 	    catch(Exception e){

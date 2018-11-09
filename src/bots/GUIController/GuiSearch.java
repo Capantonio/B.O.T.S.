@@ -1,8 +1,12 @@
 package bots.GUIController;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import bots.Controller.MainStart;
 import bots.Controller.SearchClass;
@@ -38,7 +42,7 @@ public class GuiSearch {
 	public void setStart()
 	{
 		controller = new SearchClass();
-		if (MainStart.ConnectedUser.Admin.equals("0"))
+		if (MainStart.ConnectedUser.Admin.equals("0") && MainStart.ConnectedUser.Revisioner.equals("0"))
 			Admin.setVisible(false);
 	}
 	
@@ -68,7 +72,23 @@ public class GuiSearch {
 	@FXML
 	public void handleLoad () throws SQLException
 	{
-		controller.Load();
+		String Title = "", Author = "", Data = "";
+		while (Title.equals(""))
+			Title = JOptionPane.showInputDialog("Enter the title:");
+		while (Author.equals(""))
+			Author = JOptionPane.showInputDialog("Enter the author:");
+		while (Data.equals(""))
+			Data = JOptionPane.showInputDialog("Enter the data");
+	    
+		JFileChooser chooser = MainStart.GUI.PopupLoader();
+		if (chooser.equals(null))
+		{
+			//load refused
+		}
+		else {
+			File[] files = chooser.getSelectedFiles();
+			controller.Load(Title, Author, Data, files);
+		}
 	}
 	
 	@FXML

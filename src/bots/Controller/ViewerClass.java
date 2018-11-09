@@ -36,8 +36,9 @@ public class ViewerClass {
 	public void AcceptOperaRevision()
 	{
 		try {
+			MainStart.mySql.UserQuery.SendNotificationOpera("La sua opera " + LoadOpera.Title + " è stata revisionata ed approvata.", LoadOpera.ID);
 			MainStart.mySql.OperaQuery.SetShow(LoadOpera.ID, "1");
-			MainStart.mySql.UserQuery.SendNotificationOpera("L'opera " + LoadOpera.Title + " è stata revisionata ed approvata.", LoadOpera.ID);
+			
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}
@@ -45,9 +46,10 @@ public class ViewerClass {
 	public void DenyOperaRevision()
 	{	
 		try {
+			MainStart.mySql.UserQuery.SendNotificationOpera("La sua opera " + LoadOpera.Title + " non soddisfa i requisiti di caricamento, quindi non è stata accettata nella nostra libreria.", LoadOpera.ID);
 			MainStart.mySql.PageQuery.DeletePages(LoadOpera.ID);
 			MainStart.mySql.OperaQuery.DeleteOpera(LoadOpera.ID);
-			MainStart.mySql.UserQuery.SendNotificationOpera("L'opera " + LoadOpera.Title + " non soddisfa i requisiti di caricamento, quindi non è stata accettata nella nostra libreria.",LoadOpera.ID);
+			
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}
@@ -55,8 +57,8 @@ public class ViewerClass {
 	public void AcceptTrscRevision()
 	{
 		try {
-			MainStart.mySql.PageQuery.AcceptTranscribe(LoadOpera.GetPage(PageNum).PageID);
 			MainStart.mySql.UserQuery.SendNotificationPage("La sua trascrizione della pagina " + PageNum + " dell'opera " + LoadOpera.Title + " è stata accettata come trascrizione ufficiale.", LoadOpera.Pages[PageNum].PageID);
+			MainStart.mySql.PageQuery.AcceptTranscribe(LoadOpera.GetPage(PageNum).PageID);
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}
@@ -64,8 +66,9 @@ public class ViewerClass {
 	public void DenyTrscRevision()
 	{
 		try {
+			String send = "La sua trascrizione della pagina " + PageNum + " dell'opera " + LoadOpera.Title + " non è stata accettata perchè non ritenuta corretta.";
+			MainStart.mySql.UserQuery.SendNotificationPage(send, LoadOpera.Pages[PageNum].PageID);
 			MainStart.mySql.PageQuery.DenyTranscribe(LoadOpera.GetPage(PageNum).PageID);
-			MainStart.mySql.UserQuery.SendNotificationPage("La sua trascrizione della pagina " + PageNum + " dell'opera " + LoadOpera.Title + " non è stata accettata perchè non ritenuta corretta.", LoadOpera.Pages[PageNum].PageID);
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}

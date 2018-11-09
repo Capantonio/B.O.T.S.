@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -52,12 +53,21 @@ public class GuiAdmin {
 	@FXML
 	private AnchorPane RevContainer;
 	
+	@FXML
+	private Tab UserManager, OperaManager, RevManager;
+	
 	public AdminClass controller;
 	
 	public void setStart()
 	{
 		controller = new AdminClass();
 		controller.setStart(this);
+		//on revisioner show only revision tab
+		if (MainStart.ConnectedUser.Admin.equals("0") && MainStart.ConnectedUser.Revisioner.equals("1"))
+		{
+			UserManager.setDisable(true);
+			OperaManager.setDisable(true);
+		}
 	}
 	
 	@FXML
@@ -90,6 +100,7 @@ public class GuiAdmin {
 	public void handleRevTrsc()
 	{
 		RevContainer.getChildren().clear();
+		controller.TranscribeRevisioner();
 	}
 	
 

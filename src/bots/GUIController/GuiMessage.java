@@ -22,6 +22,7 @@ public class GuiMessage {
 	public void setStart()
 	{
 		controller = new MessageClass();
+		ShowResult();
 	}
 	
 	public void ShowResult()
@@ -32,7 +33,7 @@ public class GuiMessage {
         while(it.hasNext()) {
         	NotificationModel x = it.next();
         	ShowInfo (new Label(), 0, count * 30, 70, x.Data.toString());
-			ShowInfo (new Label(), 70, count * 30, 350, x.Text);
+			ShowInfo (new Label(), 70, count * 30, 600, x.Text);
         	count++;
         }
 	}
