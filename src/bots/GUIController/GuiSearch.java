@@ -74,7 +74,7 @@ public class GuiSearch {
 	@FXML
 	public void handleMessage()
 	{
-		
+		MainStart.GUI.PopupMessage();
 	}
 	
 	@FXML

@@ -34,12 +34,4 @@ public class UserModel {
 		Revisioner = xrev;
 	}
 	
-	public String GetUsername () { return Username; }
-	public String GetEmail () { return Email; }
-	public String GetName () { return Name; }
-	public String GetSurname () { return Surname; }
-	public Integer GetID () { return ID; }
-	public String GetAdmin () { return Admin; }
-	
-	
 }

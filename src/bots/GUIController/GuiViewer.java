@@ -223,6 +223,7 @@ public class GuiViewer {
 	public void handleApply2 () throws SQLException
 	{
 		MainStart.mySql.PageQuery.SetWork(MainStart.ConnectedUser.ID, Transcribe.getText(), controller.LoadOpera.GetPage(controller.PageNum).PageID);
+		MainStart.mySql.UserQuery.CheckIdTranscription(controller.LoadOpera.GetPage(controller.PageNum).PageID);
 		cancel.setVisible(false);
 		apply.setVisible(false);
 		Transcribe.setEditable(false);

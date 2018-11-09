@@ -37,6 +37,7 @@ public class ViewerClass {
 	{
 		try {
 			MainStart.mySql.OperaQuery.SetShow(LoadOpera.ID, "1");
+			MainStart.mySql.UserQuery.SendNotificationOpera("L'opera " + LoadOpera.Title + " è stata revisionata ed approvata.", LoadOpera.ID);
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}
@@ -46,6 +47,7 @@ public class ViewerClass {
 		try {
 			MainStart.mySql.PageQuery.DeletePages(LoadOpera.ID);
 			MainStart.mySql.OperaQuery.DeleteOpera(LoadOpera.ID);
+			MainStart.mySql.UserQuery.SendNotificationOpera("L'opera " + LoadOpera.Title + " non soddisfa i requisiti di caricamento, quindi non è stata accettata nella nostra libreria.",LoadOpera.ID);
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}
@@ -54,6 +56,7 @@ public class ViewerClass {
 	{
 		try {
 			MainStart.mySql.PageQuery.AcceptTranscribe(LoadOpera.GetPage(PageNum).PageID);
+			MainStart.mySql.UserQuery.SendNotificationPage("La sua trascrizione della pagina " + PageNum + " dell'opera " + LoadOpera.Title + " è stata accettata come trascrizione ufficiale.", LoadOpera.Pages[PageNum].PageID);
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}
@@ -62,6 +65,7 @@ public class ViewerClass {
 	{
 		try {
 			MainStart.mySql.PageQuery.DenyTranscribe(LoadOpera.GetPage(PageNum).PageID);
+			MainStart.mySql.UserQuery.SendNotificationPage("La sua trascrizione della pagina " + PageNum + " dell'opera " + LoadOpera.Title + " non è stata accettata perchè non ritenuta corretta.", LoadOpera.Pages[PageNum].PageID);
 		} catch (SQLException e) 
 		{e.printStackTrace();}
 	}

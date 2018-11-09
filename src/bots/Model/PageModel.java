@@ -20,12 +20,13 @@ public class PageModel {
 	public Integer IdOpera;
 	
 	
-	public PageModel (Integer id, Image source, Integer num, String trsc)
+	public PageModel (Integer id, Image source, Integer num, String trsc, String work)
 	{
 		PageID = id;
 		PageImage = source;
 		PageNumber = num;
 		Transcribe = trsc;
+		WorkTrsc = work;
 	}
 	
 	public PageModel (Integer id, Integer num, Integer idOpera)

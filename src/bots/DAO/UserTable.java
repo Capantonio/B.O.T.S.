@@ -1,11 +1,13 @@
 package bots.DAO;
 
 import bots.Controller.AdminClass;
+import bots.Controller.MainStart;
 import bots.Controller.TranscribeListClass;
 import bots.Model.NotificationModel;
 import bots.Model.UserModel;
 import javafx.scene.layout.AnchorPane;
-
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.sql.*;
 import java.util.LinkedList;
 
@@ -31,6 +33,51 @@ public class UserTable {
 	public UserTable(Connection xcon)
 	{
 		db = xcon;
+	}
+	
+	public void CheckIdTranscription (Integer page) throws SQLException
+	{
+		PreparedStatement ListQuery = db.prepareStatement("SELECT * FROM mydb.transcription WHERE PageID = ? AND UserID = ?");
+		ListQuery.setInt(1, page);
+		ListQuery.setInt(2, MainStart.ConnectedUser.ID);
+		ResultSet res = ListQuery.executeQuery();
+		while (res.next())
+		{
+			return;
+		}
+		PreparedStatement AddListQuery = db.prepareStatement("INSERT INTO mydb.transcription VALUE (?,?)");
+		AddListQuery.setInt(1, page);
+		AddListQuery.setInt(2, MainStart.ConnectedUser.ID);
+		ListQuery.executeQuery();
+	}
+	
+	public void SendNotificationPage (String text, Integer page) throws SQLException
+	{
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		String now = LocalDate.now().toString();
+		PreparedStatement GetListQuery = db.prepareStatement("SELECT UserID FROM mydb.transcription WHERE PageID = ?");
+		GetListQuery.setInt(1, page);
+		ResultSet res = GetListQuery.executeQuery();
+		while (res.next())
+		{
+			PreparedStatement NotifyQuery = db.prepareStatement("INSERT INTO mydb.notification ('UserID','Message','Data')  VALUE (?,?,?)");
+			NotifyQuery.setInt(1, res.getInt("UserID"));
+			NotifyQuery.setString(2, text);
+			NotifyQuery.setString(3, now);
+			NotifyQuery.executeUpdate();
+		}
+	}
+	
+	public void SendNotificationOpera (String text, Integer opera) throws SQLException
+	{
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		String now = LocalDate.now().toString();
+		Integer user = MainStart.mySql.OperaQuery.GetLoader(opera);
+		PreparedStatement NotifyQuery = db.prepareStatement("INSERT INTO mydb.notification ('UserID','Message','Data')  VALUE (?,?,?)");
+		NotifyQuery.setInt(1, user);
+		NotifyQuery.setString(2, text);
+		NotifyQuery.setString(3, now);
+		NotifyQuery.executeUpdate();
 	}
 	
 	public void AddTrscList (Integer user, Integer page) throws SQLException

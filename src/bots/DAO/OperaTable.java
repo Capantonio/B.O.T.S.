@@ -33,6 +33,18 @@ public class OperaTable {
 		DelOpera.executeUpdate();
 	}
 	
+	public int GetLoader(Integer opera) throws SQLException
+	{
+		PreparedStatement LoaderQuery = db.prepareStatement("SELECT UserID FROM mydb.opera WHERE idOpera = ?");
+		LoaderQuery.setInt(1, opera);
+		ResultSet res = LoaderQuery.executeQuery();
+		while(res.next())
+		{
+			return res.getInt("UserID");
+		}
+		return (Integer) null;
+	}
+	
 	public LinkedList<OperaModel> SearchOpera (String xtitle, String xauthor, String xyear) throws SQLException
 	{
 		String SqlQuery = SqlSearch;
