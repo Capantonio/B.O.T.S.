@@ -25,7 +25,12 @@ public class GuiLogin {
     private void handleOk() 
 	{
 		if (controller.Login(usernameText.getText(), passwordText.getText()))
-			MainStart.GUI.changeStageSearch();
+		{
+			if (MainStart.ConnectedUser.Admin.equals("0"))
+				MainStart.GUI.changeStageSearch();
+			else
+				MainStart.GUI.changeStageAdmin();
+		}
 	}
 	
 	@FXML
